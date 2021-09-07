@@ -2,122 +2,122 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://substrait.io/</loc>
-         <lastmod>2021-09-06</lastmod>
+         <lastmod>2021-09-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://substrait.io/community/</loc>
-         <lastmod>2021-09-06</lastmod>
+         <lastmod>2021-09-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://substrait.io/expressions/aggregate_functions/</loc>
-         <lastmod>2021-09-06</lastmod>
+         <lastmod>2021-09-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://substrait.io/expressions/embedded_functions/</loc>
-         <lastmod>2021-09-06</lastmod>
+         <lastmod>2021-09-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://substrait.io/expressions/field_references/</loc>
-         <lastmod>2021-09-06</lastmod>
+         <lastmod>2021-09-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://substrait.io/expressions/scalar_functions/</loc>
-         <lastmod>2021-09-06</lastmod>
+         <lastmod>2021-09-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://substrait.io/expressions/specialized_record_expressions/</loc>
-         <lastmod>2021-09-06</lastmod>
+         <lastmod>2021-09-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://substrait.io/expressions/table_functions/</loc>
-         <lastmod>2021-09-06</lastmod>
+         <lastmod>2021-09-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://substrait.io/expressions/user_defined_functions/</loc>
-         <lastmod>2021-09-06</lastmod>
+         <lastmod>2021-09-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://substrait.io/expressions/window_functions/</loc>
-         <lastmod>2021-09-06</lastmod>
+         <lastmod>2021-09-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://substrait.io/relations/basics/</loc>
-         <lastmod>2021-09-06</lastmod>
+         <lastmod>2021-09-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://substrait.io/relations/embedded_relations/</loc>
-         <lastmod>2021-09-06</lastmod>
+         <lastmod>2021-09-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://substrait.io/relations/exchange_relations/</loc>
-         <lastmod>2021-09-06</lastmod>
+         <lastmod>2021-09-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://substrait.io/relations/logical_relations/</loc>
-         <lastmod>2021-09-06</lastmod>
+         <lastmod>2021-09-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://substrait.io/relations/physical_relations/</loc>
-         <lastmod>2021-09-06</lastmod>
+         <lastmod>2021-09-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://substrait.io/relations/user_defined_relations/</loc>
-         <lastmod>2021-09-06</lastmod>
+         <lastmod>2021-09-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://substrait.io/serialization/binary_serialization/</loc>
-         <lastmod>2021-09-06</lastmod>
+         <lastmod>2021-09-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://substrait.io/serialization/text_serialization/</loc>
-         <lastmod>2021-09-06</lastmod>
+         <lastmod>2021-09-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://substrait.io/spec/specification/</loc>
-         <lastmod>2021-09-06</lastmod>
+         <lastmod>2021-09-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://substrait.io/spec/technology_principles/</loc>
-         <lastmod>2021-09-06</lastmod>
+         <lastmod>2021-09-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://substrait.io/types/compound_logical_types/</loc>
-         <lastmod>2021-09-06</lastmod>
+         <lastmod>2021-09-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://substrait.io/types/physical_types/</loc>
-         <lastmod>2021-09-06</lastmod>
+         <lastmod>2021-09-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://substrait.io/types/simple_logical_types/</loc>
-         <lastmod>2021-09-06</lastmod>
+         <lastmod>2021-09-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://substrait.io/types/user_defined_types/</loc>
-         <lastmod>2021-09-06</lastmod>
+         <lastmod>2021-09-07</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>

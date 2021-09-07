@@ -61,11 +61,6 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://substrait.io/relations/exchange_relations/</loc>
-         <lastmod>2021-09-07</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
          <loc>https://substrait.io/relations/logical_relations/</loc>
          <lastmod>2021-09-07</lastmod>
          <changefreq>daily</changefreq>

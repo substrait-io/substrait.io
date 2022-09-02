@@ -72,6 +72,7 @@
 <span class=w>      </span><span class=kd>message</span><span class=w> </span><span class=nc>ParquetReadOptions</span><span class=w> </span><span class=p>{}</span>
 <span class=w>      </span><span class=kd>message</span><span class=w> </span><span class=nc>ArrowReadOptions</span><span class=w> </span><span class=p>{}</span>
 <span class=w>      </span><span class=kd>message</span><span class=w> </span><span class=nc>OrcReadOptions</span><span class=w> </span><span class=p>{}</span>
+<span class=w>      </span><span class=kd>message</span><span class=w> </span><span class=nc>DwrfReadOptions</span><span class=w> </span><span class=p>{}</span>
 
 <span class=w>      </span><span class=c1>// The format of the files.</span>
 <span class=w>      </span><span class=k>oneof</span><span class=w> </span><span class=n>file_format</span><span class=w> </span><span class=p>{</span>
@@ -79,6 +80,7 @@
 <span class=w>        </span><span class=n>ArrowReadOptions</span><span class=w> </span><span class=na>arrow</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=mi>10</span><span class=p>;</span>
 <span class=w>        </span><span class=n>OrcReadOptions</span><span class=w> </span><span class=na>orc</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=mi>11</span><span class=p>;</span>
 <span class=w>        </span><span class=n>google.protobuf.Any</span><span class=w> </span><span class=na>extension</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=mi>12</span><span class=p>;</span>
+<span class=w>        </span><span class=n>DwrfReadOptions</span><span class=w> </span><span class=na>dwrf</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=mi>13</span><span class=p>;</span>
 <span class=w>      </span><span class=p>}</span>
 <span class=w>    </span><span class=p>}</span>
 <span class=w>  </span><span class=p>}</span>

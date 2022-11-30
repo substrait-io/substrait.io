@@ -11,6 +11,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://substrait.io/governance/</loc>
+         <lastmod>2022-11-30</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://substrait.io/expressions/aggregate_functions/</loc>
          <lastmod>2022-11-30</lastmod>
          <changefreq>daily</changefreq>

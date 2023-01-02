@@ -1,0 +1,601 @@
+<!doctype html><html lang=en class=no-js> <head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="Substrait is a new specification and set of tools that allow different systems to express clear data manipulation operations."><link href=https://substrait.io/tutorial/sql_to_substrait/ rel=canonical><link rel=icon href=../../assets/images/favicon.png><meta name=generator content="mkdocs-1.4.2, mkdocs-material-7.2.6"><title>SQL to Substrait tutorial - Substrait: Cross-Language Serialization for Relational Algebra</title><link rel=stylesheet href=../../assets/stylesheets/main.802231af.min.css><link rel=stylesheet href=../../assets/stylesheets/palette.3f5d1f46.min.css><meta name=theme-color content=#e92063><link rel=preconnect href=https://fonts.gstatic.com crossorigin><link rel=stylesheet href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback"><style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style><link rel=stylesheet href=../../stylesheets/extra.css><script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-57ZX8S93Q5"),document.addEventListener("DOMContentLoaded",function(){"undefined"!=typeof location$&&location$.subscribe(function(t){gtag("config","G-57ZX8S93Q5",{page_path:t.pathname})})})</script><script async src="https://www.googletagmanager.com/gtag/js?id=G-57ZX8S93Q5"></script></head> <body dir=ltr data-md-color-scheme data-md-color-primary=pink data-md-color-accent> <script>function __prefix(e){return new URL("../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script> <input class=md-toggle data-md-toggle=drawer type=checkbox id=__drawer autocomplete=off> <input class=md-toggle data-md-toggle=search type=checkbox id=__search autocomplete=off> <label class=md-overlay for=__drawer></label> <div data-md-component=skip> <a href=#sql-to-substrait-tutorial class=md-skip> Skip to content </a> </div> <div data-md-component=announce> </div> <header class=md-header data-md-component=header> <nav class="md-header__inner md-grid" aria-label=Header> <a href=../.. title="Substrait: Cross-Language Serialization for Relational Algebra" class="md-header__button md-logo" aria-label="Substrait: Cross-Language Serialization for Relational Algebra" data-md-component=logo> <img src=../../img/logo.svg alt=logo> </a> <label class="md-header__button md-icon" for=__drawer> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg> </label> <div class=md-header__title data-md-component=header-title> <div class=md-header__ellipsis> <div class=md-header__topic> <span class=md-ellipsis> Substrait: Cross-Language Serialization for Relational Algebra </span> </div> <div class=md-header__topic data-md-component=header-topic> <span class=md-ellipsis> SQL to Substrait tutorial </span> </div> </div> </div> <label class="md-header__button md-icon" for=__search> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg> </label> <div class=md-search data-md-component=search role=dialog> <label class=md-search__overlay for=__search></label> <div class=md-search__inner role=search> <form class=md-search__form name=search> <input type=text class=md-search__input name=query aria-label=Search placeholder=Search autocapitalize=off autocorrect=off autocomplete=off spellcheck=false data-md-component=search-query required> <label class="md-search__icon md-icon" for=__search> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg> </label> <nav class=md-search__options aria-label=Search> <button type=reset class="md-search__icon md-icon" aria-label=Clear tabindex=-1> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg> </button> </nav> </form> <div class=md-search__output> <div class=md-search__scrollwrap data-md-scrollfix> <div class=md-search-result data-md-component=search-result> <div class=md-search-result__meta> Initializing search </div> <ol class=md-search-result__list></ol> </div> </div> </div> </div> </div> <div class=md-header__source> <a href=https://github.com/substrait-io/substrait title="Go to repository" class=md-source data-md-component=source> <div class="md-source__icon md-icon"> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg> </div> <div class=md-source__repository> GitHub </div> </a> </div> </nav> </header> <div class=md-container data-md-component=container> <nav class=md-tabs aria-label=Tabs data-md-component=tabs> <div class="md-tabs__inner md-grid"> <ul class=md-tabs__list> <li class=md-tabs__item> <a href=../.. class=md-tabs__link> Home </a> </li> <li class=md-tabs__item> <a href=../../spec/versioning/ class=md-tabs__link> Spec </a> </li> <li class=md-tabs__item> <a href=../../types/type_system/ class=md-tabs__link> Types </a> </li> <li class=md-tabs__item> <a href=../../expressions/field_references/ class=md-tabs__link> Expressions </a> </li> <li class=md-tabs__item> <a href=../../relations/basics/ class=md-tabs__link> Relations </a> </li> <li class=md-tabs__item> <a href=../../serialization/binary_serialization/ class=md-tabs__link> Serialization </a> </li> <li class=md-tabs__item> <a href=../../extensions/ class=md-tabs__link> Extensions </a> </li> <li class=md-tabs__item> <a href=../../community/ class=md-tabs__link> Community </a> </li> <li class=md-tabs__item> <a href=../../governance/ class=md-tabs__link> Governance </a> </li> <li class=md-tabs__item> <a href=./ class="md-tabs__link md-tabs__link--active"> Tutorial </a> </li> </ul> </div> </nav> <main class=md-main data-md-component=main> <div class="md-main__inner md-grid"> <div class="md-sidebar md-sidebar--primary" data-md-component=sidebar data-md-type=navigation> <div class=md-sidebar__scrollwrap> <div class=md-sidebar__inner> <nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label=Navigation data-md-level=0> <label class=md-nav__title for=__drawer> <a href=../.. title="Substrait: Cross-Language Serialization for Relational Algebra" class="md-nav__button md-logo" aria-label="Substrait: Cross-Language Serialization for Relational Algebra" data-md-component=logo> <img src=../../img/logo.svg alt=logo> </a> Substrait: Cross-Language Serialization for Relational Algebra </label> <div class=md-nav__source> <a href=https://github.com/substrait-io/substrait title="Go to repository" class=md-source data-md-component=source> <div class="md-source__icon md-icon"> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 448 512"><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg> </div> <div class=md-source__repository> GitHub </div> </a> </div> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../.. class=md-nav__link> Home </a> </li> <li class="md-nav__item md-nav__item--nested"> <input class="md-nav__toggle md-toggle" data-md-toggle=__nav_2 data-md-state=indeterminate type=checkbox id=__nav_2 checked> <label class=md-nav__link for=__nav_2> Spec <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav aria-label=Spec data-md-level=1> <label class=md-nav__title for=__nav_2> <span class="md-nav__icon md-icon"></span> Spec </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../spec/versioning/ class=md-nav__link> Versioning </a> </li> <li class=md-nav__item> <a href=../../spec/specification/ class=md-nav__link> Specification </a> </li> <li class=md-nav__item> <a href=../../spec/technology_principles/ class=md-nav__link> Technology Principles </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--nested"> <input class="md-nav__toggle md-toggle" data-md-toggle=__nav_3 data-md-state=indeterminate type=checkbox id=__nav_3 checked> <label class=md-nav__link for=__nav_3> Types <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav aria-label=Types data-md-level=1> <label class=md-nav__title for=__nav_3> <span class="md-nav__icon md-icon"></span> Types </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../types/type_system/ class=md-nav__link> Type System </a> </li> <li class=md-nav__item> <a href=../../types/type_classes/ class=md-nav__link> Type Classes </a> </li> <li class=md-nav__item> <a href=../../types/type_variations/ class=md-nav__link> Type Variations </a> </li> <li class=md-nav__item> <a href=../../types/type_parsing/ class=md-nav__link> Type Syntax Parsing </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--nested"> <input class="md-nav__toggle md-toggle" data-md-toggle=__nav_4 data-md-state=indeterminate type=checkbox id=__nav_4 checked> <label class=md-nav__link for=__nav_4> Expressions <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav aria-label=Expressions data-md-level=1> <label class=md-nav__title for=__nav_4> <span class="md-nav__icon md-icon"></span> Expressions </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../expressions/field_references/ class=md-nav__link> Field References </a> </li> <li class=md-nav__item> <a href=../../expressions/scalar_functions/ class=md-nav__link> Scalar Functions </a> </li> <li class=md-nav__item> <a href=../../expressions/aggregate_functions/ class=md-nav__link> Aggregate Functions </a> </li> <li class=md-nav__item> <a href=../../expressions/specialized_record_expressions/ class=md-nav__link> Specialized Record Expressions </a> </li> <li class=md-nav__item> <a href=../../expressions/window_functions/ class=md-nav__link> Window Functions </a> </li> <li class=md-nav__item> <a href=../../expressions/table_functions/ class=md-nav__link> Table Functions </a> </li> <li class=md-nav__item> <a href=../../expressions/user_defined_functions/ class=md-nav__link> User-Defined Functions </a> </li> <li class=md-nav__item> <a href=../../expressions/embedded_functions/ class=md-nav__link> Embedded Functions </a> </li> <li class=md-nav__item> <a href=../../expressions/subqueries/ class=md-nav__link> Subqueries </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--nested"> <input class="md-nav__toggle md-toggle" data-md-toggle=__nav_5 data-md-state=indeterminate type=checkbox id=__nav_5 checked> <label class=md-nav__link for=__nav_5> Relations <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav aria-label=Relations data-md-level=1> <label class=md-nav__title for=__nav_5> <span class="md-nav__icon md-icon"></span> Relations </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../relations/basics/ class=md-nav__link> Basics </a> </li> <li class=md-nav__item> <a href=../../relations/logical_relations/ class=md-nav__link> Logical Relations </a> </li> <li class=md-nav__item> <a href=../../relations/physical_relations/ class=md-nav__link> Physical Relations </a> </li> <li class=md-nav__item> <a href=../../relations/user_defined_relations/ class=md-nav__link> User Defined Relations </a> </li> <li class=md-nav__item> <a href=../../relations/embedded_relations/ class=md-nav__link> Embedded Relations </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--nested"> <input class="md-nav__toggle md-toggle" data-md-toggle=__nav_6 data-md-state=indeterminate type=checkbox id=__nav_6 checked> <label class=md-nav__link for=__nav_6> Serialization <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav aria-label=Serialization data-md-level=1> <label class=md-nav__title for=__nav_6> <span class="md-nav__icon md-icon"></span> Serialization </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../serialization/binary_serialization/ class=md-nav__link> Binary Serialization </a> </li> <li class=md-nav__item> <a href=../../serialization/text_serialization/ class=md-nav__link> Text Serialization </a> </li> </ul> </nav> </li> <li class="md-nav__item md-nav__item--nested"> <input class="md-nav__toggle md-toggle" data-md-toggle=__nav_7 data-md-state=indeterminate type=checkbox id=__nav_7 checked> <label class=md-nav__link for=__nav_7> Extensions <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav aria-label=Extensions data-md-level=1> <label class=md-nav__title for=__nav_7> <span class="md-nav__icon md-icon"></span> Extensions </label> <ul class=md-nav__list data-md-scrollfix> <li class=md-nav__item> <a href=../../extensions/ class=md-nav__link> Extensions </a> </li> <li class=md-nav__item> <a href=../../extensions/functions_aggregate_approx/ class=md-nav__link> functions_aggregate_approx.yaml </a> </li> <li class=md-nav__item> <a href=../../extensions/functions_aggregate_generic/ class=md-nav__link> functions_aggregate_generic.yaml </a> </li> <li class=md-nav__item> <a href=../../extensions/functions_arithmetic/ class=md-nav__link> functions_arithmetic.yaml </a> </li> <li class=md-nav__item> <a href=../../extensions/functions_arithmetic_decimal/ class=md-nav__link> functions_arithmetic_decimal.yaml </a> </li> <li class=md-nav__item> <a href=../../extensions/functions_boolean/ class=md-nav__link> functions_boolean.yaml </a> </li> <li class=md-nav__item> <a href=../../extensions/functions_comparison/ class=md-nav__link> functions_comparison.yaml </a> </li> <li class=md-nav__item> <a href=../../extensions/functions_datetime/ class=md-nav__link> functions_datetime.yaml </a> </li> <li class=md-nav__item> <a href=../../extensions/functions_logarithmic/ class=md-nav__link> functions_logarithmic.yaml </a> </li> <li class=md-nav__item> <a href=../../extensions/functions_rounding/ class=md-nav__link> functions_rounding.yaml </a> </li> <li class=md-nav__item> <a href=../../extensions/functions_set/ class=md-nav__link> functions_set.yaml </a> </li> <li class=md-nav__item> <a href=../../extensions/functions_string/ class=md-nav__link> functions_string.yaml </a> </li> </ul> </nav> </li> <li class=md-nav__item> <a href=../../community/ class=md-nav__link> Community </a> </li> <li class=md-nav__item> <a href=../../governance/ class=md-nav__link> Governance </a> </li> <li class="md-nav__item md-nav__item--active md-nav__item--nested"> <input class="md-nav__toggle md-toggle" data-md-toggle=__nav_10 type=checkbox id=__nav_10 checked> <label class=md-nav__link for=__nav_10> Tutorial <span class="md-nav__icon md-icon"></span> </label> <nav class=md-nav aria-label=Tutorial data-md-level=1> <label class=md-nav__title for=__nav_10> <span class="md-nav__icon md-icon"></span> Tutorial </label> <ul class=md-nav__list data-md-scrollfix> <li class="md-nav__item md-nav__item--active"> <input class="md-nav__toggle md-toggle" data-md-toggle=toc type=checkbox id=__toc> <label class="md-nav__link md-nav__link--active" for=__toc> SQL to Substrait tutorial <span class="md-nav__icon md-icon"></span> </label> <a href=./ class="md-nav__link md-nav__link--active"> SQL to Substrait tutorial </a> <nav class="md-nav md-nav--secondary" aria-label="Table of contents"> <label class=md-nav__title for=__toc> <span class="md-nav__icon md-icon"></span> Table of contents </label> <ul class=md-nav__list data-md-component=toc data-md-scrollfix> <li class=md-nav__item> <a href=#problem-set-up class=md-nav__link> Problem Set up </a> </li> <li class=md-nav__item> <a href=#types-and-schemas class=md-nav__link> Types and Schemas </a> </li> <li class=md-nav__item> <a href=#expressions class=md-nav__link> Expressions </a> </li> <li class=md-nav__item> <a href=#relations class=md-nav__link> Relations </a> </li> <li class=md-nav__item> <a href=#field-indices class=md-nav__link> Field indices </a> </li> <li class=md-nav__item> <a href=#column-selection-and-emit class=md-nav__link> Column selection and emit </a> </li> <li class=md-nav__item> <a href=#plans class=md-nav__link> Plans </a> </li> <li class=md-nav__item> <a href=#next-steps class=md-nav__link> Next steps </a> </li> </ul> </nav> </li> </ul> </nav> </li> </ul> </nav> </div> </div> </div> <div class=md-content data-md-component=content> <article class="md-content__inner md-typeset"> <h1 id=sql-to-substrait-tutorial>SQL to Substrait tutorial<a class=headerlink href=#sql-to-substrait-tutorial title="Permanent link">&para;</a></h1> <p>This is an introductory tutorial to learn the basics of Substrait for readers already familiar with SQL. We will look at how to construct a Substrait plan from an example query.</p> <p>We&rsquo;ll present the Substrait in JSON form to make it relatively readable to newcomers. Typically Substrait is exchanged as a protobuf message, but for debugging purposes it is often helpful to look at a serialized form. Plus, it&rsquo;s not uncommon for unit tests to represent plans as JSON strings. So if you are developing with Substrait, it&rsquo;s useful to have experience reading them.</p> <div class="admonition note"> <p class=admonition-title>Note</p> <p>Substrait is currently only defined with Protobuf. The JSON provided here is the Protobuf JSON output, but it is <em>not</em> the official Substrait text format. Eventually, Substrait will define it&rsquo;s own human-readable text format, but for now this tutorial will make due with what Protobuf provides.</p> </div> <p>Substrait is designed to communicate plans (mostly logical plans). Those plans contain types, schemas, expressions, extensions, and relations. We&rsquo;ll look at them in that order, going from simplest to most complex until we can construct full plans.</p> <p><img alt src=../substrait_components.svg></p> <p>This tutorial won&rsquo;t cover all the details of each piece, but it will give you an idea of how they connect together. For a detailed reference of each individual field, the best place to look is reading the <a href=https://github.com/substrait-io/substrait/tree/main/proto/substrait>protobuf definitions</a>. They represent the source-of-truth of the spec and are well-commented to address ambiguities.</p> <h2 id=problem-set-up>Problem Set up<a class=headerlink href=#problem-set-up title="Permanent link">&para;</a></h2> <p>To learn Substrait, we&rsquo;ll build up to a specific query. We&rsquo;ll be using the tables:</p> <div class=highlight><pre><span></span><code><span class=k>CREATE</span><span class=w> </span><span class=k>TABLE</span><span class=w> </span><span class=n>orders</span><span class=w> </span><span class=p>(</span><span class=w></span>
+<span class=w>  </span><span class=n>product_id</span><span class=p>:</span><span class=w> </span><span class=n>i64</span><span class=w> </span><span class=k>NOT</span><span class=w> </span><span class=k>NULL</span><span class=p>,</span><span class=w></span>
+<span class=w>  </span><span class=n>quantity</span><span class=p>:</span><span class=w> </span><span class=n>i32</span><span class=w> </span><span class=k>NOT</span><span class=w> </span><span class=k>NULL</span><span class=p>,</span><span class=w></span>
+<span class=w>  </span><span class=n>order_date</span><span class=p>:</span><span class=w> </span><span class=nb>date</span><span class=w> </span><span class=k>NOT</span><span class=w> </span><span class=k>NULL</span><span class=p>,</span><span class=w></span>
+<span class=w>  </span><span class=n>price</span><span class=p>:</span><span class=w> </span><span class=nb>decimal</span><span class=p>(</span><span class=mi>10</span><span class=p>,</span><span class=w> </span><span class=mi>2</span><span class=p>)</span><span class=w></span>
+<span class=p>);</span><span class=w></span>
+</code></pre></div> <div class=highlight><pre><span></span><code><span class=k>CREATE</span><span class=w> </span><span class=k>TABLE</span><span class=w> </span><span class=n>products</span><span class=w> </span><span class=p>(</span><span class=w></span>
+<span class=w>  </span><span class=n>product_id</span><span class=p>:</span><span class=w> </span><span class=n>i64</span><span class=w> </span><span class=k>NOT</span><span class=w> </span><span class=k>NULL</span><span class=p>,</span><span class=w></span>
+<span class=w>  </span><span class=n>categories</span><span class=p>:</span><span class=w> </span><span class=n>list</span><span class=o>&lt;</span><span class=n>string</span><span class=w> </span><span class=k>NOT</span><span class=w> </span><span class=k>NULL</span><span class=o>&gt;</span><span class=w> </span><span class=k>NOT</span><span class=w> </span><span class=k>NULL</span><span class=p>,</span><span class=w></span>
+<span class=w>  </span><span class=n>details</span><span class=p>:</span><span class=w> </span><span class=n>struct</span><span class=o>&lt;</span><span class=n>manufacturer</span><span class=p>:</span><span class=w> </span><span class=n>string</span><span class=p>,</span><span class=w> </span><span class=n>year_created</span><span class=p>:</span><span class=w> </span><span class=n>int32</span><span class=o>&gt;</span><span class=p>,</span><span class=w></span>
+<span class=w>  </span><span class=n>product_name</span><span class=p>:</span><span class=w> </span><span class=n>string</span><span class=w></span>
+<span class=p>);</span><span class=w></span>
+</code></pre></div> <p>This <code>orders</code> table represents events where products were sold, recording how many (<code>quantity</code>) and at what price (<code>price</code>). The <code>products</code> table provides details for each product, with <code>product_id</code> as the primary key.</p> <p>And we&rsquo;ll try to create the query:</p> <div class=highlight><pre><span></span><code><span class=k>SELECT</span><span class=w></span>
+<span class=w>  </span><span class=n>product_name</span><span class=p>,</span><span class=w></span>
+<span class=w>  </span><span class=n>product_id</span><span class=p>,</span><span class=w></span>
+<span class=w>  </span><span class=k>sum</span><span class=p>(</span><span class=n>quantity</span><span class=w> </span><span class=o>*</span><span class=w> </span><span class=n>price</span><span class=p>)</span><span class=w> </span><span class=k>as</span><span class=w> </span><span class=n>sales</span><span class=w></span>
+<span class=k>FROM</span><span class=w></span>
+<span class=w>  </span><span class=n>orders</span><span class=w></span>
+<span class=k>INNER</span><span class=w> </span><span class=k>JOIN</span><span class=w></span>
+<span class=w>  </span><span class=n>products</span><span class=w></span>
+<span class=k>ON</span><span class=w></span>
+<span class=w>  </span><span class=n>orders</span><span class=p>.</span><span class=n>product_id</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>products</span><span class=p>.</span><span class=n>product_id</span><span class=w></span>
+<span class=k>WHERE</span><span class=w></span>
+<span class=w>  </span><span class=c1>-- categories does not contain &quot;Computers&quot;</span>
+<span class=w>  </span><span class=n>INDEX_IN</span><span class=p>(</span><span class=ss>&quot;Computers&quot;</span><span class=p>,</span><span class=w> </span><span class=n>categories</span><span class=p>)</span><span class=w> </span><span class=k>IS</span><span class=w> </span><span class=k>NULL</span><span class=w></span>
+<span class=k>GROUP</span><span class=w> </span><span class=k>BY</span><span class=w></span>
+<span class=w>  </span><span class=n>product_name</span><span class=p>,</span><span class=w></span>
+<span class=w>  </span><span class=n>product_id</span><span class=w></span>
+</code></pre></div> <p>The query asked the question: For products that aren&rsquo;t in the <code>"Computer"</code> category, how much has each product generated in sales?</p> <p>However, Substrait doesn&rsquo;t correspond to SQL as much as it does to logical plans. So to be less ambiguous, the plan we are aiming for looks like:</p> <div class=highlight><pre><span></span><code>|-+ Aggregate({sales = sum(quantity_price)}, group_by=(product_name, product_id))
+  |-+ InnerJoin(on=orders.product_id = products.product_id)
+    |- ReadTable(orders)
+    |-+ Filter(INDEX_IN(&quot;Computers&quot;, categories) IS NULL)
+      |- ReadTable(products)
+</code></pre></div> <h2 id=types-and-schemas>Types and Schemas<a class=headerlink href=#types-and-schemas title="Permanent link">&para;</a></h2> <p>As part of the Substrait plan, we&rsquo;ll need to embed the data types of the input tables. In Substrait, each type is a distinct message, which at a minimum contains a field for nullability. For example, a string field looks like:</p> <div class=highlight><pre><span></span><code><span class=p>{</span><span class=w></span>
+<span class=w>  </span><span class=nt>&quot;string&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>    </span><span class=nt>&quot;nullability&quot;</span><span class=p>:</span><span class=w> </span><span class=s2>&quot;NULLABILITY_NULLABLE&quot;</span><span class=w></span>
+<span class=w>  </span><span class=p>}</span><span class=w></span>
+<span class=p>}</span><span class=w></span>
+</code></pre></div> <p>Nullability is an enum not a boolean, since Substrait allows <code>NULLABILITY_UNSPECIFIED</code> as an option, in addition to <code>NULLABILITY_NULLABLE</code> (nullable) and <code>NULLABILITY_REQUIRED</code> (not nullable).</p> <p>Other types such as <code>VarChar</code> and <code>Decimal</code> have other parameters. For example, our <code>orders.price</code> column will be represented as:</p> <div class=highlight><pre><span></span><code><span class=p>{</span><span class=w></span>
+<span class=w>  </span><span class=nt>&quot;decimal&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>    </span><span class=nt>&quot;precision&quot;</span><span class=p>:</span><span class=w> </span><span class=mi>10</span><span class=p>,</span><span class=w></span>
+<span class=w>    </span><span class=nt>&quot;scale&quot;</span><span class=p>:</span><span class=w> </span><span class=mi>2</span><span class=p>,</span><span class=w></span>
+<span class=w>    </span><span class=nt>&quot;nullability&quot;</span><span class=p>:</span><span class=w> </span><span class=s2>&quot;NULLABILITY_NULLABLE&quot;</span><span class=w></span>
+<span class=w>  </span><span class=p>}</span><span class=w></span>
+<span class=p>}</span><span class=w></span>
+</code></pre></div> <p>Finally, there are nested compound types such as structs and list types that have other types as parameters. For example, the <code>products.categories</code> column is a list of strings, so can be represented as:</p> <div class=highlight><pre><span></span><code><span class=p>{</span><span class=w></span>
+<span class=w>  </span><span class=nt>&quot;list&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>    </span><span class=nt>&quot;type&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>      </span><span class=nt>&quot;string&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>        </span><span class=nt>&quot;nullability&quot;</span><span class=p>:</span><span class=w> </span><span class=s2>&quot;NULLABILITY_REQUIRED&quot;</span><span class=w></span>
+<span class=w>      </span><span class=p>}</span><span class=w></span>
+<span class=w>    </span><span class=p>},</span><span class=w></span>
+<span class=w>    </span><span class=nt>&quot;nullability&quot;</span><span class=p>:</span><span class=w> </span><span class=s2>&quot;NULLABILITY_REQUIRED&quot;</span><span class=w></span>
+<span class=w>  </span><span class=p>}</span><span class=w></span>
+<span class=p>}</span><span class=w></span>
+</code></pre></div> <p>To know what parameters each type can take, refer to the Protobuf definitions in <a href=https://github.com/substrait-io/substrait/blob/main/proto/substrait/type.proto>type.proto</a>.</p> <p>Schemas of tables can be represented with a <code>NamedStruct</code> message, which is the combination of a struct type containing all the columns and a list of column names. For the <code>orders</code> table, this will look like:</p> <div class=highlight><pre><span></span><code><span class=p>{</span><span class=w></span>
+<span class=w>  </span><span class=nt>&quot;names&quot;</span><span class=p>:</span><span class=w> </span><span class=p>[</span><span class=w></span>
+<span class=w>    </span><span class=s2>&quot;product_id&quot;</span><span class=p>,</span><span class=w></span>
+<span class=w>    </span><span class=s2>&quot;quantity&quot;</span><span class=p>,</span><span class=w></span>
+<span class=w>    </span><span class=s2>&quot;order_date&quot;</span><span class=p>,</span><span class=w></span>
+<span class=w>    </span><span class=s2>&quot;price&quot;</span><span class=w></span>
+<span class=w>  </span><span class=p>],</span><span class=w></span>
+<span class=w>  </span><span class=nt>&quot;struct&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>    </span><span class=nt>&quot;types&quot;</span><span class=p>:</span><span class=w> </span><span class=p>[</span><span class=w></span>
+<span class=w>      </span><span class=p>{</span><span class=w></span>
+<span class=w>        </span><span class=nt>&quot;i64&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>          </span><span class=nt>&quot;nullability&quot;</span><span class=p>:</span><span class=w> </span><span class=s2>&quot;NULLABILITY_REQUIRED&quot;</span><span class=w></span>
+<span class=w>        </span><span class=p>}</span><span class=w></span>
+<span class=w>      </span><span class=p>},</span><span class=w></span>
+<span class=w>      </span><span class=p>{</span><span class=w></span>
+<span class=w>        </span><span class=nt>&quot;i32&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>          </span><span class=nt>&quot;nullability&quot;</span><span class=p>:</span><span class=w> </span><span class=s2>&quot;NULLABILITY_REQUIRED&quot;</span><span class=w></span>
+<span class=w>        </span><span class=p>}</span><span class=w></span>
+<span class=w>      </span><span class=p>},</span><span class=w></span>
+<span class=w>      </span><span class=p>{</span><span class=w></span>
+<span class=w>        </span><span class=nt>&quot;date&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>          </span><span class=nt>&quot;nullability&quot;</span><span class=p>:</span><span class=w> </span><span class=s2>&quot;NULLABILITY_REQUIRED&quot;</span><span class=w></span>
+<span class=w>        </span><span class=p>}</span><span class=w></span>
+<span class=w>      </span><span class=p>},</span><span class=w></span>
+<span class=w>      </span><span class=p>{</span><span class=w></span>
+<span class=w>        </span><span class=nt>&quot;decimal&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>          </span><span class=nt>&quot;precision&quot;</span><span class=p>:</span><span class=w> </span><span class=mi>10</span><span class=p>,</span><span class=w></span>
+<span class=w>          </span><span class=nt>&quot;scale&quot;</span><span class=p>:</span><span class=w> </span><span class=mi>2</span><span class=p>,</span><span class=w></span>
+<span class=w>          </span><span class=nt>&quot;nullability&quot;</span><span class=p>:</span><span class=w> </span><span class=s2>&quot;NULLABILITY_NULLABLE&quot;</span><span class=w></span>
+<span class=w>        </span><span class=p>}</span><span class=w></span>
+<span class=w>      </span><span class=p>}</span><span class=w></span>
+<span class=w>    </span><span class=p>],</span><span class=w></span>
+<span class=w>    </span><span class=nt>&quot;nullability&quot;</span><span class=p>:</span><span class=w> </span><span class=s2>&quot;NULLABILITY_REQUIRED&quot;</span><span class=w></span>
+<span class=w>  </span><span class=p>}</span><span class=w></span>
+<span class=p>}</span><span class=w></span>
+</code></pre></div> <p>Here, <code>names</code> is the names of all fields. In nested schemas, this includes the names of subfields in depth-first order. So for the <code>products</code> table, the <code>details</code> struct field will be included as well as the two subfields (<code>manufacturer</code> and <code>year_created</code>) right after. And because it&rsquo;s depth first, these subfields appear before <code>product_name</code>. The full schema looks like:</p> <div class=highlight><pre><span></span><code><span class=p>{</span><span class=w></span>
+<span class=w>  </span><span class=nt>&quot;names&quot;</span><span class=p>:</span><span class=w> </span><span class=p>[</span><span class=w></span>
+<span class=w>    </span><span class=s2>&quot;product_id&quot;</span><span class=p>,</span><span class=w></span>
+<span class=w>    </span><span class=s2>&quot;categories&quot;</span><span class=p>,</span><span class=w></span>
+<span class=w>    </span><span class=s2>&quot;details&quot;</span><span class=p>,</span><span class=w></span>
+<span class=w>    </span><span class=s2>&quot;manufacturer&quot;</span><span class=p>,</span><span class=w></span>
+<span class=w>    </span><span class=s2>&quot;year_created&quot;</span><span class=p>,</span><span class=w></span>
+<span class=w>    </span><span class=s2>&quot;product_name&quot;</span><span class=w></span>
+<span class=w>  </span><span class=p>],</span><span class=w></span>
+<span class=w>  </span><span class=nt>&quot;struct&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>    </span><span class=nt>&quot;types&quot;</span><span class=p>:</span><span class=w> </span><span class=p>[</span><span class=w></span>
+<span class=w>      </span><span class=p>{</span><span class=w></span>
+<span class=w>        </span><span class=nt>&quot;i64&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>          </span><span class=nt>&quot;nullability&quot;</span><span class=p>:</span><span class=w> </span><span class=s2>&quot;NULLABILITY_REQUIRED&quot;</span><span class=w></span>
+<span class=w>        </span><span class=p>}</span><span class=w></span>
+<span class=w>      </span><span class=p>},</span><span class=w></span>
+<span class=w>      </span><span class=p>{</span><span class=w></span>
+<span class=w>        </span><span class=nt>&quot;list&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>          </span><span class=nt>&quot;type&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>            </span><span class=nt>&quot;string&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>              </span><span class=nt>&quot;nullability&quot;</span><span class=p>:</span><span class=w> </span><span class=s2>&quot;NULLABILITY_REQUIRED&quot;</span><span class=w></span>
+<span class=w>            </span><span class=p>}</span><span class=w></span>
+<span class=w>          </span><span class=p>},</span><span class=w></span>
+<span class=w>          </span><span class=nt>&quot;nullability&quot;</span><span class=p>:</span><span class=w> </span><span class=s2>&quot;NULLABILITY_REQUIRED&quot;</span><span class=w></span>
+<span class=w>        </span><span class=p>}</span><span class=w></span>
+<span class=w>      </span><span class=p>},</span><span class=w></span>
+<span class=w>      </span><span class=p>{</span><span class=w></span>
+<span class=w>        </span><span class=nt>&quot;struct&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>          </span><span class=nt>&quot;types&quot;</span><span class=p>:</span><span class=w> </span><span class=p>[</span><span class=w></span>
+<span class=w>            </span><span class=p>{</span><span class=w></span>
+<span class=w>              </span><span class=nt>&quot;string&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>                </span><span class=nt>&quot;nullability&quot;</span><span class=p>:</span><span class=w> </span><span class=s2>&quot;NULLABILITY_NULLABLE&quot;</span><span class=w></span>
+<span class=w>              </span><span class=p>},</span><span class=w></span>
+<span class=w>              </span><span class=nt>&quot;i32&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>                </span><span class=nt>&quot;nullability&quot;</span><span class=p>:</span><span class=w> </span><span class=s2>&quot;NULLABILITY_NULLABLE&quot;</span><span class=w></span>
+<span class=w>              </span><span class=p>}</span><span class=w></span>
+<span class=w>            </span><span class=p>}</span><span class=w></span>
+<span class=w>          </span><span class=p>],</span><span class=w></span>
+<span class=w>          </span><span class=nt>&quot;nullability&quot;</span><span class=p>:</span><span class=w> </span><span class=s2>&quot;NULLABILITY_NULLABLE&quot;</span><span class=w></span>
+<span class=w>        </span><span class=p>}</span><span class=w></span>
+<span class=w>      </span><span class=p>},</span><span class=w></span>
+<span class=w>      </span><span class=p>{</span><span class=w></span>
+<span class=w>        </span><span class=nt>&quot;string&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>          </span><span class=nt>&quot;nullability&quot;</span><span class=p>:</span><span class=w> </span><span class=s2>&quot;NULLABILITY_NULLABLE&quot;</span><span class=w></span>
+<span class=w>        </span><span class=p>}</span><span class=w></span>
+<span class=w>      </span><span class=p>}</span><span class=w></span>
+<span class=w>    </span><span class=p>],</span><span class=w></span>
+<span class=w>    </span><span class=nt>&quot;nullability&quot;</span><span class=p>:</span><span class=w> </span><span class=s2>&quot;NULLABILITY_REQUIRED&quot;</span><span class=w></span>
+<span class=w>  </span><span class=p>}</span><span class=w></span>
+<span class=p>}</span><span class=w></span>
+</code></pre></div> <h2 id=expressions>Expressions<a class=headerlink href=#expressions title="Permanent link">&para;</a></h2> <p>The next basic building block we will need is expressions. Expressions can be one of several things, including:</p> <ul> <li>Field references</li> <li>Literal values</li> <li>Functions</li> <li>Subqueries</li> <li>Window Functions</li> </ul> <p>Since some expressions such as functions can contain other expressions, expressions can be represented as a tree. Literal values and field references typically are the leaf nodes.</p> <p>For the expression <code>INDEX_IN(categories, "Computers") IS NULL</code>, we have a field reference <code>categories</code>, a literal string <code>"Computers"</code>, and two functions&mdash; <code>INDEX_IN</code> and <code>IS NULL</code>.</p> <p><img alt src=../expression_trees.svg></p> <p>The field reference for <code>categories</code> is represented by:</p> <div class=highlight><pre><span></span><code><span class=p>{</span><span class=w></span>
+<span class=w>  </span><span class=nt>&quot;selection&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>    </span><span class=nt>&quot;directReference&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>      </span><span class=nt>&quot;structField&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>        </span><span class=nt>&quot;field&quot;</span><span class=p>:</span><span class=w> </span><span class=mi>1</span><span class=w></span>
+<span class=w>      </span><span class=p>}</span><span class=w></span>
+<span class=w>    </span><span class=p>},</span><span class=w></span>
+<span class=w>    </span><span class=nt>&quot;rootReference&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{}</span><span class=w></span>
+<span class=w>  </span><span class=p>}</span><span class=w></span>
+<span class=p>}</span><span class=w></span>
+</code></pre></div> <p>Whereas SQL references field by names, Substrait always references fields numerically. This means that a Substrait expression only makes sense relative to a certain schema. As we&rsquo;ll see later when we discuss relations, for a filter relation this will be relative to the input schema, so the <code>1</code> here is referring to the second field of <code>products</code>.</p> <div class="admonition note"> <p class=admonition-title>Note</p> <p>Protobuf may not serialize fields with integer type and value 0, since 0 is the default. So if you instead saw <code>"structField": {}</code>, know that is is equivalent to <code>"structField": { "field": 0 }</code>.</p> </div> <p><code>"Computers"</code> will be translated to a literal expression:</p> <div class=highlight><pre><span></span><code><span class=p>{</span><span class=w></span>
+<span class=w>  </span><span class=nt>&quot;literal&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>    </span><span class=nt>&quot;string&quot;</span><span class=p>:</span><span class=w> </span><span class=s2>&quot;Computers&quot;</span><span class=w></span>
+<span class=w>  </span><span class=p>}</span><span class=w></span>
+<span class=p>}</span><span class=w></span>
+</code></pre></div> <p>Both <code>IS NULL</code> and <code>INDEX_IN</code> will be scalar function expressions. Available functions in Substrait are defined in extension YAML files contained in <a href=https://github.com/substrait-io/substrait/tree/main/extensions>https://github.com/substrait-io/substrait/tree/main/extensions</a>. Additional extensions may be created elsewhere. <code>IS NULL</code> is defined as a <code>is_null</code> function in <a href="https://github.com/substrait-io/substrait/blob/main/extensions/functions_comparison.yaml#:~:text=%2D-,name%3A%20%22is_null%22,-description%3A%20Whether">functions_comparison.yaml</a> and <code>INDEX_IN</code> is defined as <code>index_in</code> function in <a href="https://github.com/substrait-io/substrait/blob/main/extensions/functions_set.yaml#:~:text=%2D-,name%3A%20%22index_in%22,-description%3A%20%3E">functions_set.yaml</a>.</p> <p>First, the expression for <code>INDEX_IN("Computers", categories)</code> is:</p> <div class=highlight><pre><span></span><code><span class=p>{</span><span class=w></span>
+<span class=w>  </span><span class=nt>&quot;scalarFunction&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>    </span><span class=nt>&quot;functionReference&quot;</span><span class=p>:</span><span class=w> </span><span class=mi>1</span><span class=p>,</span><span class=w></span>
+<span class=w>    </span><span class=nt>&quot;outputType&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>      </span><span class=nt>&quot;i64&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>        </span><span class=nt>&quot;nullability&quot;</span><span class=p>:</span><span class=w> </span><span class=s2>&quot;NULLABILITY_NULLABLE&quot;</span><span class=w></span>
+<span class=w>      </span><span class=p>}</span><span class=w></span>
+<span class=w>    </span><span class=p>},</span><span class=w></span>
+<span class=w>    </span><span class=nt>&quot;arguments&quot;</span><span class=p>:</span><span class=w> </span><span class=p>[</span><span class=w></span>
+<span class=w>      </span><span class=p>{</span><span class=w></span>
+<span class=w>        </span><span class=nt>&quot;value&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>          </span><span class=nt>&quot;literal&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>            </span><span class=nt>&quot;string&quot;</span><span class=p>:</span><span class=w> </span><span class=s2>&quot;Computers&quot;</span><span class=w></span>
+<span class=w>          </span><span class=p>}</span><span class=w></span>
+<span class=w>        </span><span class=p>}</span><span class=w></span>
+<span class=w>      </span><span class=p>},</span><span class=w></span>
+<span class=w>      </span><span class=p>{</span><span class=w></span>
+<span class=w>        </span><span class=nt>&quot;value&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>          </span><span class=nt>&quot;selection&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>            </span><span class=nt>&quot;directReference&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>              </span><span class=nt>&quot;structField&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>                </span><span class=nt>&quot;field&quot;</span><span class=p>:</span><span class=w> </span><span class=mi>1</span><span class=w></span>
+<span class=w>              </span><span class=p>}</span><span class=w></span>
+<span class=w>            </span><span class=p>},</span><span class=w></span>
+<span class=w>            </span><span class=nt>&quot;rootReference&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{}</span><span class=w></span>
+<span class=w>          </span><span class=p>}</span><span class=w></span>
+<span class=w>        </span><span class=p>}</span><span class=w></span>
+<span class=w>      </span><span class=p>}</span><span class=w></span>
+<span class=w>    </span><span class=p>]</span><span class=w></span>
+<span class=w>  </span><span class=p>}</span><span class=w></span>
+<span class=p>}</span><span class=w></span>
+</code></pre></div> <p><code>functionReference</code> will be explained later in the plans section. For now, understand that it&rsquo;s a ID that corresponds to an entry in a list of function definitions that we will create later.</p> <p><code>outputType</code> defines the type the function outputs. We know this is a nullable <code>i64</code> type since that is what the function definition declares in the YAML file.</p> <p><code>arguments</code> defines the arguments being passed into the function, which are all done positionally based on the function definition in the YAML file. The first argument is an option that defines how <code>NaN</code> equality is handled, and since that&rsquo;s not relevant here we just pass <code>"NAN_IS_NOT_NAN"</code>. The next two options will be familiar as the literal and the field reference we constructed earlier.</p> <p>To create the final expression, we just need to wrap this in another scalar function expression for <code>IS NULL</code>.</p> <div class=highlight><pre><span></span><code><span class=p>{</span><span class=w></span>
+<span class=w>  </span><span class=nt>&quot;scalarFunction&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>    </span><span class=nt>&quot;functionReference&quot;</span><span class=p>:</span><span class=w> </span><span class=mi>2</span><span class=p>,</span><span class=w></span>
+<span class=w>    </span><span class=nt>&quot;outputType&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>      </span><span class=nt>&quot;bool&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>        </span><span class=nt>&quot;nullability&quot;</span><span class=p>:</span><span class=w> </span><span class=s2>&quot;NULLABILITY_REQUIRED&quot;</span><span class=w></span>
+<span class=w>      </span><span class=p>}</span><span class=w></span>
+<span class=w>    </span><span class=p>},</span><span class=w></span>
+<span class=w>    </span><span class=nt>&quot;arguments&quot;</span><span class=p>:</span><span class=w> </span><span class=p>[</span><span class=w></span>
+<span class=w>      </span><span class=p>{</span><span class=w></span>
+<span class=w>        </span><span class=nt>&quot;value&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>          </span><span class=nt>&quot;scalarFunction&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>            </span><span class=nt>&quot;functionReference&quot;</span><span class=p>:</span><span class=w> </span><span class=mi>1</span><span class=p>,</span><span class=w></span>
+<span class=w>            </span><span class=nt>&quot;outputType&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>              </span><span class=nt>&quot;i64&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>                </span><span class=nt>&quot;nullability&quot;</span><span class=p>:</span><span class=w> </span><span class=s2>&quot;NULLABILITY_NULLABLE&quot;</span><span class=w></span>
+<span class=w>              </span><span class=p>}</span><span class=w></span>
+<span class=w>            </span><span class=p>},</span><span class=w></span>
+<span class=w>            </span><span class=nt>&quot;arguments&quot;</span><span class=p>:</span><span class=w> </span><span class=p>[</span><span class=w></span>
+<span class=w>              </span><span class=p>{</span><span class=w></span>
+<span class=w>                </span><span class=nt>&quot;value&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>                  </span><span class=nt>&quot;literal&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>                    </span><span class=nt>&quot;string&quot;</span><span class=p>:</span><span class=w> </span><span class=s2>&quot;Computers&quot;</span><span class=w></span>
+<span class=w>                  </span><span class=p>}</span><span class=w></span>
+<span class=w>                </span><span class=p>}</span><span class=w></span>
+<span class=w>              </span><span class=p>},</span><span class=w></span>
+<span class=w>              </span><span class=p>{</span><span class=w></span>
+<span class=w>                </span><span class=nt>&quot;value&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>                  </span><span class=nt>&quot;selection&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>                    </span><span class=nt>&quot;directReference&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>                      </span><span class=nt>&quot;structField&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>                        </span><span class=nt>&quot;field&quot;</span><span class=p>:</span><span class=w> </span><span class=mi>1</span><span class=w></span>
+<span class=w>                      </span><span class=p>}</span><span class=w></span>
+<span class=w>                    </span><span class=p>},</span><span class=w></span>
+<span class=w>                    </span><span class=nt>&quot;rootReference&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{}</span><span class=w></span>
+<span class=w>                  </span><span class=p>}</span><span class=w></span>
+<span class=w>                </span><span class=p>}</span><span class=w></span>
+<span class=w>              </span><span class=p>}</span><span class=w></span>
+<span class=w>            </span><span class=p>]</span><span class=w></span>
+<span class=w>          </span><span class=p>}</span><span class=w></span>
+<span class=w>        </span><span class=p>}</span><span class=w></span>
+<span class=w>      </span><span class=p>}</span><span class=w></span>
+<span class=w>    </span><span class=p>]</span><span class=w></span>
+<span class=w>  </span><span class=p>}</span><span class=w></span>
+<span class=p>}</span><span class=w></span>
+</code></pre></div> <p>To see what other types of expressions are available and what fields they take, see the <code>Expression</code> proto definition in <a href="https://github.com/substrait-io/substrait/blob/main/proto/substrait/algebra.proto#:~:text=message-,Expression,-%7B">algebra.proto</a>.</p> <h2 id=relations>Relations<a class=headerlink href=#relations title="Permanent link">&para;</a></h2> <p>In most SQL engines, a logical or physical plan is represented as a tree of nodes, such as filter, project, scan, or join. The left diagram below may be a familiar representation of our plan, where nodes feed data into each other moving from left to right. In Substrait, each of these nodes is a <strong>Relation</strong>.</p> <p><img alt src=../plan_tree_versus_expression.svg></p> <p>A relation that takes another relation as input will contain (or refer to) that relation. This is usually a field called <code>input</code>, but sometimes different names are used in relations that take multiple inputs. For example, join relations take two inputs, with field names <code>left</code> and <code>right</code>. In JSON, the rough layout for the relations in our plan will look like:</p> <div class=highlight><pre><span></span><code><span class=p>{</span><span class=w></span>
+<span class=w>    </span><span class=nt>&quot;aggregate&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>        </span><span class=nt>&quot;input&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>            </span><span class=nt>&quot;join&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>                </span><span class=nt>&quot;left&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>                    </span><span class=nt>&quot;filter&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>                        </span><span class=nt>&quot;input&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>                            </span><span class=nt>&quot;read&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>                                </span><span class=err>...</span><span class=w></span>
+<span class=w>                            </span><span class=p>}</span><span class=w></span>
+<span class=w>                        </span><span class=p>},</span><span class=w></span>
+<span class=w>                        </span><span class=err>...</span><span class=w></span>
+<span class=w>                    </span><span class=p>}</span><span class=w></span>
+<span class=w>                </span><span class=p>},</span><span class=w></span>
+<span class=w>                </span><span class=nt>&quot;right&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>                    </span><span class=nt>&quot;read&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>                        </span><span class=err>...</span><span class=w></span>
+<span class=w>                    </span><span class=p>}</span><span class=w></span>
+<span class=w>                </span><span class=p>},</span><span class=w></span>
+<span class=w>                </span><span class=err>...</span><span class=w></span>
+<span class=w>            </span><span class=p>}</span><span class=w></span>
+<span class=w>        </span><span class=p>},</span><span class=w></span>
+<span class=w>        </span><span class=err>...</span><span class=w></span>
+<span class=w>    </span><span class=p>}</span><span class=w></span>
+<span class=p>}</span><span class=w></span>
+</code></pre></div> <p>For our plan, we need to define the read relations for each table, a filter relation to exclude the <code>"Computer"</code> category from the <code>products</code> table, a join relation to perform the inner join, and finally an aggregate relation to compute the total sales.</p> <p>The read relations are composed of a <code>baseSchema</code> and a <code>namedTable</code> field. The type of read is a named table, so the <code>namedTable</code> field is present with <code>names</code> containing the list of name segments (<code>my_database.my_table</code>). Other types of reads include virtual tables (a table of literal values embedded in the plan) and a list of files. See <a href=/relations/logical_relations/#read-definition-types>Read Definition Types</a> for more details. The <code>baseSchema</code> is the schemas we defined earlier and <code>namedTable</code> are just the names of the tables. So for reading the <code>orders</code> table, the relation looks like:</p> <div class=highlight><pre><span></span><code><span class=p>{</span><span class=w></span>
+<span class=w>  </span><span class=nt>&quot;read&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>    </span><span class=nt>&quot;namedTable&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>      </span><span class=nt>&quot;names&quot;</span><span class=p>:</span><span class=w> </span><span class=p>[</span><span class=w></span>
+<span class=w>        </span><span class=s2>&quot;orders&quot;</span><span class=w></span>
+<span class=w>      </span><span class=p>]</span><span class=w></span>
+<span class=w>    </span><span class=p>},</span><span class=w></span>
+<span class=w>    </span><span class=nt>&quot;baseSchema&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>      </span><span class=nt>&quot;names&quot;</span><span class=p>:</span><span class=w> </span><span class=p>[</span><span class=w></span>
+<span class=w>        </span><span class=s2>&quot;product_id&quot;</span><span class=p>,</span><span class=w></span>
+<span class=w>        </span><span class=s2>&quot;quantity&quot;</span><span class=p>,</span><span class=w></span>
+<span class=w>        </span><span class=s2>&quot;order_date&quot;</span><span class=p>,</span><span class=w></span>
+<span class=w>        </span><span class=s2>&quot;price&quot;</span><span class=w></span>
+<span class=w>      </span><span class=p>],</span><span class=w></span>
+<span class=w>      </span><span class=nt>&quot;struct&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>        </span><span class=nt>&quot;types&quot;</span><span class=p>:</span><span class=w> </span><span class=p>[</span><span class=w></span>
+<span class=w>          </span><span class=p>{</span><span class=w></span>
+<span class=w>            </span><span class=nt>&quot;i64&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>              </span><span class=nt>&quot;nullability&quot;</span><span class=p>:</span><span class=w> </span><span class=s2>&quot;NULLABILITY_REQUIRED&quot;</span><span class=w></span>
+<span class=w>            </span><span class=p>}</span><span class=w></span>
+<span class=w>          </span><span class=p>},</span><span class=w></span>
+<span class=w>          </span><span class=p>{</span><span class=w></span>
+<span class=w>            </span><span class=nt>&quot;i32&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>              </span><span class=nt>&quot;nullability&quot;</span><span class=p>:</span><span class=w> </span><span class=s2>&quot;NULLABILITY_REQUIRED&quot;</span><span class=w></span>
+<span class=w>            </span><span class=p>}</span><span class=w></span>
+<span class=w>          </span><span class=p>},</span><span class=w></span>
+<span class=w>          </span><span class=p>{</span><span class=w></span>
+<span class=w>            </span><span class=nt>&quot;date&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>              </span><span class=nt>&quot;nullability&quot;</span><span class=p>:</span><span class=w> </span><span class=s2>&quot;NULLABILITY_REQUIRED&quot;</span><span class=w></span>
+<span class=w>            </span><span class=p>}</span><span class=w></span>
+<span class=w>          </span><span class=p>},</span><span class=w></span>
+<span class=w>          </span><span class=p>{</span><span class=w></span>
+<span class=w>            </span><span class=nt>&quot;decimal&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>              </span><span class=nt>&quot;scale&quot;</span><span class=p>:</span><span class=w> </span><span class=mi>10</span><span class=p>,</span><span class=w></span>
+<span class=w>              </span><span class=nt>&quot;precision&quot;</span><span class=p>:</span><span class=w> </span><span class=mi>2</span><span class=p>,</span><span class=w></span>
+<span class=w>              </span><span class=nt>&quot;nullability&quot;</span><span class=p>:</span><span class=w> </span><span class=s2>&quot;NULLABILITY_NULLABLE&quot;</span><span class=w></span>
+<span class=w>            </span><span class=p>}</span><span class=w></span>
+<span class=w>          </span><span class=p>}</span><span class=w></span>
+<span class=w>        </span><span class=p>],</span><span class=w></span>
+<span class=w>        </span><span class=nt>&quot;nullability&quot;</span><span class=p>:</span><span class=w> </span><span class=s2>&quot;NULLABILITY_REQUIRED&quot;</span><span class=w></span>
+<span class=w>      </span><span class=p>}</span><span class=w></span>
+<span class=w>    </span><span class=p>}</span><span class=w></span>
+<span class=w>  </span><span class=p>}</span><span class=w></span>
+<span class=p>}</span><span class=w></span>
+</code></pre></div> <p>Read relations are leaf nodes. Leaf nodes don&rsquo;t depend on any other node for data and usually represent a source of data in our plan. Leaf nodes are then typically used as input for other nodes that manipulate the data. For example, our filter node will take the <code>products</code> read relation as an input.</p> <p>The filter node will also take a <code>condition</code> field, which will just be the expression we constructed earlier.</p> <div class=highlight><pre><span></span><code><span class=p>{</span><span class=w></span>
+<span class=w>  </span><span class=nt>&quot;filter&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>    </span><span class=nt>&quot;input&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>      </span><span class=nt>&quot;read&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w> </span><span class=err>...</span><span class=w> </span><span class=p>}</span><span class=w></span>
+<span class=w>    </span><span class=p>},</span><span class=w></span>
+<span class=w>    </span><span class=nt>&quot;condition&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>      </span><span class=nt>&quot;scalarFunction&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>        </span><span class=nt>&quot;functionReference&quot;</span><span class=p>:</span><span class=w> </span><span class=mi>2</span><span class=p>,</span><span class=w></span>
+<span class=w>        </span><span class=nt>&quot;outputType&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>          </span><span class=nt>&quot;bool&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>            </span><span class=nt>&quot;nullability&quot;</span><span class=p>:</span><span class=w> </span><span class=s2>&quot;NULLABILITY_REQUIRED&quot;</span><span class=w></span>
+<span class=w>          </span><span class=p>}</span><span class=w></span>
+<span class=w>        </span><span class=p>},</span><span class=w></span>
+<span class=w>        </span><span class=nt>&quot;arguments&quot;</span><span class=p>:</span><span class=w> </span><span class=p>[</span><span class=w></span>
+<span class=w>          </span><span class=p>{</span><span class=w></span>
+<span class=w>            </span><span class=nt>&quot;value&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>              </span><span class=nt>&quot;scalarFunction&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>                </span><span class=nt>&quot;functionReference&quot;</span><span class=p>:</span><span class=w> </span><span class=mi>1</span><span class=p>,</span><span class=w></span>
+<span class=w>                </span><span class=nt>&quot;outputType&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>                  </span><span class=nt>&quot;i64&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>                    </span><span class=nt>&quot;nullability&quot;</span><span class=p>:</span><span class=w> </span><span class=s2>&quot;NULLABILITY_NULLABLE&quot;</span><span class=w></span>
+<span class=w>                  </span><span class=p>}</span><span class=w></span>
+<span class=w>                </span><span class=p>},</span><span class=w></span>
+<span class=w>                </span><span class=nt>&quot;arguments&quot;</span><span class=p>:</span><span class=w> </span><span class=p>[</span><span class=w></span>
+<span class=w>                  </span><span class=p>{</span><span class=w></span>
+<span class=w>                    </span><span class=nt>&quot;value&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>                      </span><span class=nt>&quot;literal&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>                        </span><span class=nt>&quot;string&quot;</span><span class=p>:</span><span class=w> </span><span class=s2>&quot;Computers&quot;</span><span class=w></span>
+<span class=w>                      </span><span class=p>}</span><span class=w></span>
+<span class=w>                    </span><span class=p>}</span><span class=w></span>
+<span class=w>                  </span><span class=p>},</span><span class=w></span>
+<span class=w>                  </span><span class=p>{</span><span class=w></span>
+<span class=w>                    </span><span class=nt>&quot;value&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>                      </span><span class=nt>&quot;selection&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>                        </span><span class=nt>&quot;directReference&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>                          </span><span class=nt>&quot;structField&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>                            </span><span class=nt>&quot;field&quot;</span><span class=p>:</span><span class=w> </span><span class=mi>1</span><span class=w></span>
+<span class=w>                          </span><span class=p>}</span><span class=w></span>
+<span class=w>                        </span><span class=p>},</span><span class=w></span>
+<span class=w>                        </span><span class=nt>&quot;rootReference&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{}</span><span class=w></span>
+<span class=w>                      </span><span class=p>}</span><span class=w></span>
+<span class=w>                    </span><span class=p>}</span><span class=w></span>
+<span class=w>                  </span><span class=p>}</span><span class=w></span>
+<span class=w>                </span><span class=p>]</span><span class=w></span>
+<span class=w>              </span><span class=p>}</span><span class=w></span>
+<span class=w>            </span><span class=p>}</span><span class=w></span>
+<span class=w>          </span><span class=p>}</span><span class=w></span>
+<span class=w>        </span><span class=p>]</span><span class=w></span>
+<span class=w>      </span><span class=p>}</span><span class=w></span>
+<span class=w>    </span><span class=p>}</span><span class=w></span>
+<span class=w>  </span><span class=p>}</span><span class=w></span>
+<span class=p>}</span><span class=w></span>
+</code></pre></div> <p>The join relation will take two inputs. In the <code>left</code> field will be the read relation for <code>orders</code> and in the <code>right</code> field will be the filter relation (from <code>products</code>). The <code>type</code> field is an enum that allows us to specify we want an inner join. Finally, the <code>expression</code> field contains the expression to use in the join. Since we haven&rsquo;t used the <code>equals()</code> function yet, we use the reference number 2 here. (Again, we&rsquo;ll see at the end with <a href=#plans>plans</a> how these functions are resolved.) The arguments refer to fields 0 and 4, which are indices into the combined schema formed from the left and right inputs. We&rsquo;ll discuss later in <a href=#field-indices>Field Indices</a> where these come from.</p> <div class=highlight><pre><span></span><code><span class=p>{</span><span class=w></span>
+<span class=w>  </span><span class=nt>&quot;join&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>    </span><span class=nt>&quot;left&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w> </span><span class=err>...</span><span class=w> </span><span class=p>},</span><span class=w></span>
+<span class=w>    </span><span class=nt>&quot;right&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w> </span><span class=err>...</span><span class=w> </span><span class=p>},</span><span class=w></span>
+<span class=w>    </span><span class=nt>&quot;type&quot;</span><span class=p>:</span><span class=w> </span><span class=s2>&quot;JOIN_TYPE_INNER&quot;</span><span class=p>,</span><span class=w></span>
+<span class=w>    </span><span class=nt>&quot;expression&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>      </span><span class=nt>&quot;scalarFunction&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>        </span><span class=nt>&quot;functionReference&quot;</span><span class=p>:</span><span class=w> </span><span class=mi>3</span><span class=p>,</span><span class=w></span>
+<span class=w>        </span><span class=nt>&quot;outputType&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>          </span><span class=nt>&quot;bool&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>            </span><span class=nt>&quot;nullability&quot;</span><span class=p>:</span><span class=w> </span><span class=s2>&quot;NULLABILITY_NULLABLE&quot;</span><span class=w></span>
+<span class=w>          </span><span class=p>}</span><span class=w></span>
+<span class=w>        </span><span class=p>},</span><span class=w></span>
+<span class=w>        </span><span class=nt>&quot;arguments&quot;</span><span class=p>:</span><span class=w> </span><span class=p>[</span><span class=w></span>
+<span class=w>          </span><span class=p>{</span><span class=w></span>
+<span class=w>            </span><span class=nt>&quot;value&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>              </span><span class=nt>&quot;selection&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>                </span><span class=nt>&quot;directReference&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>                  </span><span class=nt>&quot;structField&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>                    </span><span class=nt>&quot;field&quot;</span><span class=p>:</span><span class=w> </span><span class=mi>0</span><span class=w></span>
+<span class=w>                  </span><span class=p>}</span><span class=w></span>
+<span class=w>                </span><span class=p>},</span><span class=w></span>
+<span class=w>                </span><span class=nt>&quot;rootReference&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{}</span><span class=w></span>
+<span class=w>              </span><span class=p>}</span><span class=w></span>
+<span class=w>            </span><span class=p>}</span><span class=w></span>
+<span class=w>          </span><span class=p>},</span><span class=w></span>
+<span class=w>          </span><span class=p>{</span><span class=w></span>
+<span class=w>            </span><span class=nt>&quot;value&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>              </span><span class=nt>&quot;selection&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>                </span><span class=nt>&quot;directReference&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>                  </span><span class=nt>&quot;structField&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>                    </span><span class=nt>&quot;field&quot;</span><span class=p>:</span><span class=w> </span><span class=mi>4</span><span class=w></span>
+<span class=w>                  </span><span class=p>}</span><span class=w></span>
+<span class=w>                </span><span class=p>},</span><span class=w></span>
+<span class=w>                </span><span class=nt>&quot;rootReference&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{}</span><span class=w></span>
+<span class=w>              </span><span class=p>}</span><span class=w></span>
+<span class=w>            </span><span class=p>}</span><span class=w></span>
+<span class=w>          </span><span class=p>}</span><span class=w></span>
+<span class=w>        </span><span class=p>]</span><span class=w></span>
+<span class=w>      </span><span class=p>}</span><span class=w></span>
+<span class=w>    </span><span class=p>}</span><span class=w></span>
+<span class=w>  </span><span class=p>}</span><span class=w></span>
+<span class=p>}</span><span class=w></span>
+</code></pre></div> <p>The final aggregation requires two things, other than the input. First is the groupings. We&rsquo;ll use a single grouping expression containing the references to the fields <code>product_name</code> and <code>product_id</code>. (Multiple grouping expressions can be used to do cube aggregations.)</p> <p>For <code>measures</code>, we&rsquo;ll need to define <code>sum(quantity * price) as sales</code>. Substrait is stricter about data types, and quantity is an integer while price is a decimal. So we&rsquo;ll first need to cast <code>quantity</code> to a decimal, making the Substrait expression more like <code>sum(multiply(cast(decimal(10, 2), quantity), price))</code>. Both <code>sum()</code> and <code>multiply()</code> are functions, defined in <a href=https://github.com/substrait-io/substrait/blob/main/extensions/functions_arithmetic_decimal.yaml>functions_arithmetic_demical.yaml</a>. However <code>cast()</code> is a special expression type in Substrait, rather than a function.</p> <p>Finally, the naming with <code>as sales</code> will be handled at the end as part of the plan, so that&rsquo;s not part of the relation. Since we are always using field indices to refer to fields, Substrait doesn&rsquo;t record any intermediate field names.</p> <div class=highlight><pre><span></span><code><span class=p>{</span><span class=w></span>
+<span class=w>  </span><span class=nt>&quot;aggregate&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>    </span><span class=nt>&quot;input&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w> </span><span class=err>...</span><span class=w> </span><span class=p>},</span><span class=w></span>
+<span class=w>    </span><span class=nt>&quot;groupings&quot;</span><span class=p>:</span><span class=w> </span><span class=p>[</span><span class=w></span>
+<span class=w>      </span><span class=p>{</span><span class=w></span>
+<span class=w>        </span><span class=nt>&quot;groupingExpressions&quot;</span><span class=p>:</span><span class=w> </span><span class=p>[</span><span class=w></span>
+<span class=w>          </span><span class=p>{</span><span class=w></span>
+<span class=w>            </span><span class=nt>&quot;value&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>              </span><span class=nt>&quot;selection&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>                </span><span class=nt>&quot;directReference&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>                  </span><span class=nt>&quot;structField&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>                    </span><span class=nt>&quot;field&quot;</span><span class=p>:</span><span class=w> </span><span class=mi>0</span><span class=w></span>
+<span class=w>                  </span><span class=p>}</span><span class=w></span>
+<span class=w>                </span><span class=p>},</span><span class=w></span>
+<span class=w>                </span><span class=nt>&quot;rootReference&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{}</span><span class=w></span>
+<span class=w>              </span><span class=p>}</span><span class=w></span>
+<span class=w>            </span><span class=p>}</span><span class=w></span>
+<span class=w>          </span><span class=p>},</span><span class=w></span>
+<span class=w>          </span><span class=p>{</span><span class=w></span>
+<span class=w>            </span><span class=nt>&quot;value&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>              </span><span class=nt>&quot;selection&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>                </span><span class=nt>&quot;directReference&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>                  </span><span class=nt>&quot;structField&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>                    </span><span class=nt>&quot;field&quot;</span><span class=p>:</span><span class=w> </span><span class=mi>7</span><span class=w></span>
+<span class=w>                  </span><span class=p>}</span><span class=w></span>
+<span class=w>                </span><span class=p>},</span><span class=w></span>
+<span class=w>                </span><span class=nt>&quot;rootReference&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{}</span><span class=w></span>
+<span class=w>              </span><span class=p>}</span><span class=w></span>
+<span class=w>            </span><span class=p>}</span><span class=w></span>
+<span class=w>          </span><span class=p>},</span><span class=w></span>
+<span class=w>        </span><span class=p>]</span><span class=w></span>
+<span class=w>      </span><span class=p>}</span><span class=w></span>
+<span class=w>    </span><span class=p>],</span><span class=w></span>
+<span class=w>    </span><span class=nt>&quot;measures&quot;</span><span class=p>:</span><span class=w> </span><span class=p>[</span><span class=w></span>
+<span class=w>      </span><span class=p>{</span><span class=w></span>
+<span class=w>        </span><span class=nt>&quot;measure&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>          </span><span class=nt>&quot;functionReference&quot;</span><span class=p>:</span><span class=w> </span><span class=mi>3</span><span class=p>,</span><span class=w></span>
+<span class=w>          </span><span class=nt>&quot;outputType&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>            </span><span class=nt>&quot;decimal&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>              </span><span class=nt>&quot;precision&quot;</span><span class=p>:</span><span class=w> </span><span class=mi>38</span><span class=p>,</span><span class=w></span>
+<span class=w>              </span><span class=nt>&quot;scale&quot;</span><span class=p>:</span><span class=w> </span><span class=mi>2</span><span class=p>,</span><span class=w></span>
+<span class=w>              </span><span class=nt>&quot;nullability&quot;</span><span class=p>:</span><span class=w> </span><span class=s2>&quot;NULLABILITY_NULLABLE&quot;</span><span class=w></span>
+<span class=w>            </span><span class=p>}</span><span class=w></span>
+<span class=w>          </span><span class=p>},</span><span class=w></span>
+<span class=w>          </span><span class=nt>&quot;arguments&quot;</span><span class=p>:</span><span class=w> </span><span class=p>[</span><span class=w></span>
+<span class=w>            </span><span class=p>{</span><span class=w></span>
+<span class=w>              </span><span class=nt>&quot;value&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>                </span><span class=nt>&quot;scalarFunction&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>                  </span><span class=nt>&quot;functionReference&quot;</span><span class=p>:</span><span class=w> </span><span class=mi>4</span><span class=p>,</span><span class=w></span>
+<span class=w>                  </span><span class=nt>&quot;outputType&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>                    </span><span class=nt>&quot;decimal&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>                      </span><span class=nt>&quot;precision&quot;</span><span class=p>:</span><span class=w> </span><span class=mi>38</span><span class=p>,</span><span class=w></span>
+<span class=w>                      </span><span class=nt>&quot;scale&quot;</span><span class=p>:</span><span class=w> </span><span class=mi>2</span><span class=p>,</span><span class=w></span>
+<span class=w>                      </span><span class=nt>&quot;nullability&quot;</span><span class=p>:</span><span class=w> </span><span class=s2>&quot;NULLABILITY_NULLABLE&quot;</span><span class=w></span>
+<span class=w>                    </span><span class=p>}</span><span class=w></span>
+<span class=w>                  </span><span class=p>},</span><span class=w></span>
+<span class=w>                  </span><span class=nt>&quot;arguments&quot;</span><span class=p>:</span><span class=w> </span><span class=p>[</span><span class=w></span>
+<span class=w>                    </span><span class=p>{</span><span class=w></span>
+<span class=w>                      </span><span class=nt>&quot;value&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>                        </span><span class=nt>&quot;cast&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>                          </span><span class=nt>&quot;type&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>                            </span><span class=nt>&quot;decimal&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>                              </span><span class=nt>&quot;precision&quot;</span><span class=p>:</span><span class=w> </span><span class=mi>10</span><span class=p>,</span><span class=w></span>
+<span class=w>                              </span><span class=nt>&quot;scale&quot;</span><span class=p>:</span><span class=w> </span><span class=mi>2</span><span class=p>,</span><span class=w></span>
+<span class=w>                              </span><span class=nt>&quot;nullability&quot;</span><span class=p>:</span><span class=w> </span><span class=s2>&quot;NULLABILITY_REQUIRED&quot;</span><span class=w></span>
+<span class=w>                            </span><span class=p>}</span><span class=w></span>
+<span class=w>                          </span><span class=p>},</span><span class=w></span>
+<span class=w>                          </span><span class=nt>&quot;input&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>                            </span><span class=nt>&quot;selection&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>                              </span><span class=nt>&quot;directReference&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>                                </span><span class=nt>&quot;structField&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>                                  </span><span class=nt>&quot;field&quot;</span><span class=p>:</span><span class=w> </span><span class=mi>1</span><span class=w></span>
+<span class=w>                                </span><span class=p>}</span><span class=w></span>
+<span class=w>                              </span><span class=p>},</span><span class=w></span>
+<span class=w>                              </span><span class=nt>&quot;rootReference&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{}</span><span class=w></span>
+<span class=w>                            </span><span class=p>}</span><span class=w></span>
+<span class=w>                          </span><span class=p>}</span><span class=w></span>
+<span class=w>                        </span><span class=p>}</span><span class=w></span>
+<span class=w>                      </span><span class=p>}</span><span class=w></span>
+<span class=w>                    </span><span class=p>},</span><span class=w></span>
+<span class=w>                    </span><span class=p>{</span><span class=w></span>
+<span class=w>                      </span><span class=nt>&quot;value&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>                        </span><span class=nt>&quot;selection&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>                          </span><span class=nt>&quot;directReference&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>                            </span><span class=nt>&quot;structField&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>                              </span><span class=nt>&quot;field&quot;</span><span class=p>:</span><span class=w> </span><span class=mi>3</span><span class=w></span>
+<span class=w>                            </span><span class=p>}</span><span class=w></span>
+<span class=w>                          </span><span class=p>},</span><span class=w></span>
+<span class=w>                          </span><span class=nt>&quot;rootReference&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{}</span><span class=w></span>
+<span class=w>                        </span><span class=p>}</span><span class=w></span>
+<span class=w>                      </span><span class=p>}</span><span class=w></span>
+<span class=w>                    </span><span class=p>}</span><span class=w></span>
+<span class=w>                  </span><span class=p>]</span><span class=w></span>
+<span class=w>                </span><span class=p>}</span><span class=w></span>
+<span class=w>              </span><span class=p>}</span><span class=w></span>
+<span class=w>            </span><span class=p>}</span><span class=w></span>
+<span class=w>          </span><span class=p>]</span><span class=w></span>
+<span class=w>        </span><span class=p>}</span><span class=w></span>
+<span class=w>      </span><span class=p>}</span><span class=w></span>
+<span class=w>    </span><span class=p>]</span><span class=w></span>
+<span class=w>  </span><span class=p>}</span><span class=w></span>
+<span class=p>}</span><span class=w></span>
+</code></pre></div> <h2 id=field-indices>Field indices<a class=headerlink href=#field-indices title="Permanent link">&para;</a></h2> <p>So far, we have glossed over the field indices. Now that we&rsquo;ve built up each of the relations, it will be a bit easier to explain them.</p> <p>Throughout the plan, data always has some implicit schema, which is modified by each relation. Often, the schema can change <em>within</em> a relation&ndash;we&rsquo;ll discuss an example in the next section. Each relation has it&rsquo;s own rules in how schemas are modified, called the output order or emit order. For the purposes of our query, the relevant rules are:</p> <ul> <li>For Read relations, their output schema is the schema of the table.</li> <li>For Filter relations, the output schema is the same as in the input schema.</li> <li>For Joins relations, the input schema is the concatenation of the left and then the right schemas. The output schema is the same.</li> <li>For Aggregate relations, the output schema is the group by fields followed by the measures.</li> </ul> <div class="admonition note"> <p class=admonition-title>Note</p> <p>Sometimes it can be hard to tell what the implicit schema is. For help determining that, consider using the substrait-validator tool, described in <a href=#next-steps>Next Steps</a>.</p> </div> <p>The diagram below shows the mapping of field indices within each relation and how each of the field references show up in each relations properties.</p> <p><img alt src=../field_indices_layout.svg></p> <h2 id=column-selection-and-emit>Column selection and emit<a class=headerlink href=#column-selection-and-emit title="Permanent link">&para;</a></h2> <p>As written, the aggregate output schema will be:</p> <div class=highlight><pre><span></span><code>0: product_id: i64
+1: product_name: string
+2: sales: decimal(32, 8)
+</code></pre></div> <p>But we want <code>product_name</code> to come before <code>product_id</code> in our output. How do we reorder those columns?</p> <!-- TODO: Make this example less artificial --> <p>You might be tempted to add a <a href=/relations/logical_relations/#project-operation>Project relation</a> at the end. However, the project relation only adds columns; it is not responsible for subsetting or reordering columns.</p> <p>Instead, any relation can reorder or subset columns through the <code>emit</code> property. By default, it is set to <code>direct</code>, which outputs all columns &ldquo;as is&rdquo;. But it can also be specified as a sequence of field indices.</p> <p>For simplicity, we will add this to the final aggregate relation. We could also add it to all relations, only selecting the fields we strictly need in later relations. Indeed, a good optimizer would probably do that to our plan. And for some engines, the emit property is only valid within a project relation, so in those cases we would need to add that relation in combination with emit. But to keep things simple, we&rsquo;ll limit the columns at the end within the aggregation relation.</p> <p>For our final column selection, we&rsquo;ll modify the top-level relation to be:</p> <div class=highlight><pre><span></span><code><span class=p>{</span><span class=w></span>
+<span class=w>  </span><span class=nt>&quot;aggregate&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>    </span><span class=nt>&quot;input&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w> </span><span class=err>...</span><span class=w> </span><span class=p>},</span><span class=w></span>
+<span class=w>    </span><span class=nt>&quot;groupings&quot;</span><span class=p>:</span><span class=w> </span><span class=p>[</span><span class=w> </span><span class=err>...</span><span class=w> </span><span class=p>],</span><span class=w></span>
+<span class=w>    </span><span class=nt>&quot;measures&quot;</span><span class=p>:</span><span class=w> </span><span class=p>[</span><span class=w> </span><span class=err>...</span><span class=w> </span><span class=p>],</span><span class=w></span>
+<span class=w>    </span><span class=nt>&quot;common&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>      </span><span class=nt>&quot;emit&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>        </span><span class=nt>&quot;outputMapping&quot;</span><span class=p>:</span><span class=w> </span><span class=p>[</span><span class=mi>1</span><span class=p>,</span><span class=w> </span><span class=mi>0</span><span class=p>,</span><span class=w> </span><span class=mi>2</span><span class=p>]</span><span class=w></span>
+<span class=w>      </span><span class=p>}</span><span class=w></span>
+<span class=w>    </span><span class=p>}</span><span class=w></span>
+<span class=p>}</span><span class=w></span>
+</code></pre></div> <h2 id=plans>Plans<a class=headerlink href=#plans title="Permanent link">&para;</a></h2> <p>Now that we&rsquo;ve constructed our relations, we can put it all into a plan. Substrait plans are the only messages that can be sent and received on their own. Recall that earlier, we had function references to those YAML files, but so far there&rsquo;s been no place to tell a consumer what those function reference IDs mean or which extensions we are using. That information belongs at the plan level.</p> <p>The overall layout for a plan is</p> <div class=highlight><pre><span></span><code><span class=p>{</span><span class=w></span>
+<span class=w>  </span><span class=nt>&quot;extensionUris&quot;</span><span class=p>:</span><span class=w> </span><span class=p>[</span><span class=w> </span><span class=err>...</span><span class=w> </span><span class=p>],</span><span class=w></span>
+<span class=w>  </span><span class=nt>&quot;extensions&quot;</span><span class=p>:</span><span class=w> </span><span class=p>[</span><span class=w> </span><span class=err>...</span><span class=w> </span><span class=p>],</span><span class=w></span>
+<span class=w>  </span><span class=nt>&quot;relations&quot;</span><span class=p>:</span><span class=w> </span><span class=p>[</span><span class=w></span>
+<span class=w>    </span><span class=p>{</span><span class=w></span>
+<span class=w>      </span><span class=nt>&quot;root&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>        </span><span class=nt>&quot;names&quot;</span><span class=p>:</span><span class=w> </span><span class=p>[</span><span class=w></span>
+<span class=w>          </span><span class=s2>&quot;product_name&quot;</span><span class=p>,</span><span class=w></span>
+<span class=w>          </span><span class=s2>&quot;product_id&quot;</span><span class=p>,</span><span class=w></span>
+<span class=w>          </span><span class=s2>&quot;sales&quot;</span><span class=w></span>
+<span class=w>        </span><span class=p>],</span><span class=w></span>
+<span class=w>        </span><span class=nt>&quot;input&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w> </span><span class=err>...</span><span class=w> </span><span class=p>}</span><span class=w></span>
+<span class=w>      </span><span class=p>}</span><span class=w></span>
+<span class=w>    </span><span class=p>}</span><span class=w></span>
+<span class=w>  </span><span class=p>]</span><span class=w></span>
+<span class=p>}</span><span class=w></span>
+</code></pre></div> <p>The <code>relations</code> field is a list of Root relations. Most queries only have one root relation, but the spec allows for multiple so a common plan could be referenced by other plans, sort of like a CTE (Common Table Expression) from SQL. The root relation provides the final column names for our query. The input to this relation is our aggregate relation (which contains all the other relations as children).</p> <p>For extensions, we need to provide <code>extensionUris</code> with the locations of the YAML files we used and <code>extensions</code> with the list of functions we used and which extension they come from.</p> <p>In our query, we used:</p> <ul> <li><code>index_in</code> (1), from <code>functions_string.yaml</code>,</li> <li><code>is_null</code> (2), from <code>functions_comparison.yaml</code>,</li> <li><code>equal</code> (3), from <code>functions_comparison.yaml</code>,</li> <li><code>sum</code> (4), from <code>functions_arithmetic_decimal.yaml</code>,</li> <li><code>multiply</code> (5), from <code>functions_arithmetic_decimal.yaml</code>.</li> </ul> <p>So first we can create the three extension uris:</p> <div class=highlight><pre><span></span><code><span class=p>[</span><span class=w></span>
+<span class=w>  </span><span class=p>{</span><span class=w></span>
+<span class=w>    </span><span class=nt>&quot;extensionUriAnchor&quot;</span><span class=p>:</span><span class=w> </span><span class=mi>1</span><span class=p>,</span><span class=w></span>
+<span class=w>    </span><span class=nt>&quot;uri&quot;</span><span class=p>:</span><span class=w> </span><span class=s2>&quot;https://github.com/substrait-io/substrait/blob/main/extensions/functions_string.yaml&quot;</span><span class=w></span>
+<span class=w>  </span><span class=p>},</span><span class=w></span>
+<span class=w>  </span><span class=p>{</span><span class=w></span>
+<span class=w>    </span><span class=nt>&quot;extensionUriAnchor&quot;</span><span class=p>:</span><span class=w> </span><span class=mi>2</span><span class=p>,</span><span class=w></span>
+<span class=w>    </span><span class=nt>&quot;uri&quot;</span><span class=p>:</span><span class=w> </span><span class=s2>&quot;https://github.com/substrait-io/substrait/blob/main/extensions/functions_comparison.yaml&quot;</span><span class=w></span>
+<span class=w>  </span><span class=p>},</span><span class=w></span>
+<span class=w>  </span><span class=p>{</span><span class=w></span>
+<span class=w>    </span><span class=nt>&quot;extensionUriAnchor&quot;</span><span class=p>:</span><span class=w> </span><span class=mi>3</span><span class=p>,</span><span class=w></span>
+<span class=w>    </span><span class=nt>&quot;uri&quot;</span><span class=p>:</span><span class=w> </span><span class=s2>&quot;https://github.com/substrait-io/substrait/blob/main/extensions/functions_arithmetic_decimal.yaml&quot;</span><span class=w></span>
+<span class=w>  </span><span class=p>}</span><span class=w></span>
+<span class=p>]</span><span class=w></span>
+</code></pre></div> <p>Then we can create the extensions:</p> <div class=highlight><pre><span></span><code><span class=p>[</span><span class=w></span>
+<span class=w>  </span><span class=p>{</span><span class=w></span>
+<span class=w>    </span><span class=nt>&quot;extensionFunction&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>      </span><span class=nt>&quot;extensionUriReference&quot;</span><span class=p>:</span><span class=w> </span><span class=mi>1</span><span class=p>,</span><span class=w></span>
+<span class=w>      </span><span class=nt>&quot;functionAnchor&quot;</span><span class=p>:</span><span class=w> </span><span class=mi>1</span><span class=p>,</span><span class=w></span>
+<span class=w>      </span><span class=nt>&quot;name&quot;</span><span class=p>:</span><span class=w> </span><span class=s2>&quot;index_in&quot;</span><span class=w></span>
+<span class=w>    </span><span class=p>}</span><span class=w></span>
+<span class=w>  </span><span class=p>},</span><span class=w></span>
+<span class=w>  </span><span class=p>{</span><span class=w></span>
+<span class=w>    </span><span class=nt>&quot;extensionFunction&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>      </span><span class=nt>&quot;extensionUriReference&quot;</span><span class=p>:</span><span class=w> </span><span class=mi>2</span><span class=p>,</span><span class=w></span>
+<span class=w>      </span><span class=nt>&quot;functionAnchor&quot;</span><span class=p>:</span><span class=w> </span><span class=mi>2</span><span class=p>,</span><span class=w></span>
+<span class=w>      </span><span class=nt>&quot;name&quot;</span><span class=p>:</span><span class=w> </span><span class=s2>&quot;is_null&quot;</span><span class=w></span>
+<span class=w>    </span><span class=p>}</span><span class=w></span>
+<span class=w>  </span><span class=p>},</span><span class=w></span>
+<span class=w>  </span><span class=p>{</span><span class=w></span>
+<span class=w>    </span><span class=nt>&quot;extensionFunction&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>      </span><span class=nt>&quot;extensionUriReference&quot;</span><span class=p>:</span><span class=w> </span><span class=mi>2</span><span class=p>,</span><span class=w></span>
+<span class=w>      </span><span class=nt>&quot;functionAnchor&quot;</span><span class=p>:</span><span class=w> </span><span class=mi>3</span><span class=p>,</span><span class=w></span>
+<span class=w>      </span><span class=nt>&quot;name&quot;</span><span class=p>:</span><span class=w> </span><span class=s2>&quot;equal&quot;</span><span class=w></span>
+<span class=w>    </span><span class=p>}</span><span class=w></span>
+<span class=w>  </span><span class=p>},</span><span class=w></span>
+<span class=w>  </span><span class=p>{</span><span class=w></span>
+<span class=w>    </span><span class=nt>&quot;extensionFunction&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>      </span><span class=nt>&quot;extensionUriReference&quot;</span><span class=p>:</span><span class=w> </span><span class=mi>3</span><span class=p>,</span><span class=w></span>
+<span class=w>      </span><span class=nt>&quot;functionAnchor&quot;</span><span class=p>:</span><span class=w> </span><span class=mi>4</span><span class=p>,</span><span class=w></span>
+<span class=w>      </span><span class=nt>&quot;name&quot;</span><span class=p>:</span><span class=w> </span><span class=s2>&quot;sum&quot;</span><span class=w></span>
+<span class=w>    </span><span class=p>}</span><span class=w></span>
+<span class=w>  </span><span class=p>},</span><span class=w></span>
+<span class=w>  </span><span class=p>{</span><span class=w></span>
+<span class=w>    </span><span class=nt>&quot;extensionFunction&quot;</span><span class=p>:</span><span class=w> </span><span class=p>{</span><span class=w></span>
+<span class=w>      </span><span class=nt>&quot;extensionUriReference&quot;</span><span class=p>:</span><span class=w> </span><span class=mi>3</span><span class=p>,</span><span class=w></span>
+<span class=w>      </span><span class=nt>&quot;functionAnchor&quot;</span><span class=p>:</span><span class=w> </span><span class=mi>5</span><span class=p>,</span><span class=w></span>
+<span class=w>      </span><span class=nt>&quot;name&quot;</span><span class=p>:</span><span class=w> </span><span class=s2>&quot;multiply&quot;</span><span class=w></span>
+<span class=w>    </span><span class=p>}</span><span class=w></span>
+<span class=w>  </span><span class=p>}</span><span class=w></span>
+<span class=p>]</span><span class=w></span>
+</code></pre></div> <p>Once we&rsquo;ve added our extensions, the plan is complete. Our plan outputted in full is: <a href=../final_plan.json>final_plan.json</a>.</p> <h2 id=next-steps>Next steps<a class=headerlink href=#next-steps title="Permanent link">&para;</a></h2> <p><strong>Validate and introspect plans using <a href=https://github.com/substrait-io/substrait-validator>substrait-validator</a></strong>. Amongst other things, this tool can show what the current schema and column indices are at each point in the plan. Try downloading the final plan JSON above and generating an HTML report on the plan with:</p> <div class=highlight><pre><span></span><code>substrait-validator final_plan.json --out-file output.html
+</code></pre></div> <!-- TODO: Link to helpful tools as next steps.
+     https://github.com/substrait-io/substrait/issues/392 --> </article> </div> </div> </main> <!--
+  Copyright (c) 2016-2020 Martin Donath <martin.donath@squidfunk.com>
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to
+  deal in the Software without restriction, including without limitation the
+  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+  sell copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+  IN THE SOFTWARE.
+--> <!-- Application footer --> <footer class=md-footer> <!-- Link to previous and/or next page --> <div class=md-footer-nav> <nav class="md-footer-nav__inner md-grid" aria-label=Footer> <!-- Link to previous page --> <a href=../../governance/ title=Governance class="md-footer-nav__link md-footer-nav__link--prev" rel=prev> <div class="md-footer-nav__button md-icon"> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg> </div> <div class=md-footer-nav__title> <div class=md-ellipsis> <span class=md-footer-nav__direction> Previous </span> Governance </div> </div> </a> <!-- Link to next page --> </nav> </div> <!-- Further information --> <div class="md-footer-meta md-typeset"> <div class="md-footer-meta__inner md-grid"> <!-- Copyright and theme information --> <div class=md-footer-copyright> </div> <!-- Social links --> <div class=md-footer-social> <a href=https://twitter.com/substrait_io target=_blank rel=noopener title=twitter.com class=md-footer-social__link> <svg xmlns=http://www.w3.org/2000/svg viewbox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg> </a> </div> </div> </div> </footer> </div> <div class=md-dialog data-md-component=dialog> <div class="md-dialog__inner md-typeset"></div> </div> <script id=__config type=application/json>{"base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.expand", "navigation.instant", "toc.integrate"], "search": "../../assets/javascripts/workers/search.409db549.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": null}</script> <script src=../../assets/javascripts/bundle.756773cc.min.js></script> </body> </html>

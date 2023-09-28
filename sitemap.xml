@@ -6,6 +6,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://substrait.io/about/</loc>
+         <lastmod>2023-09-28</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://substrait.io/governance/</loc>
          <lastmod>2023-09-28</lastmod>
          <changefreq>daily</changefreq>

@@ -176,6 +176,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://substrait.io/spec/extending/</loc>
+         <lastmod>2023-11-22</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://substrait.io/spec/specification/</loc>
          <lastmod>2023-11-22</lastmod>
          <changefreq>daily</changefreq>

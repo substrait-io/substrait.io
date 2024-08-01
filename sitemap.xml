@@ -176,6 +176,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://substrait.io/serialization/basics/</loc>
+         <lastmod>2024-08-01</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://substrait.io/serialization/binary_serialization/</loc>
          <lastmod>2024-08-01</lastmod>
          <changefreq>daily</changefreq>

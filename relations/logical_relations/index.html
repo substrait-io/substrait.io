@@ -74,14 +74,41 @@
 <span class=w>      </span><span class=kd>message</span><span class=w> </span><span class=nc>ArrowReadOptions</span><span class=w> </span><span class=p>{}</span>
 <span class=w>      </span><span class=kd>message</span><span class=w> </span><span class=nc>OrcReadOptions</span><span class=w> </span><span class=p>{}</span>
 <span class=w>      </span><span class=kd>message</span><span class=w> </span><span class=nc>DwrfReadOptions</span><span class=w> </span><span class=p>{}</span>
+<span class=w>      </span><span class=kd>message</span><span class=w> </span><span class=nc>DelimiterSeparatedTextReadOptions</span><span class=w> </span><span class=p>{</span>
+<span class=w>        </span><span class=c1>// Delimiter separated files may be compressed.  The reader should</span>
+<span class=w>        </span><span class=c1>// autodetect this and decompress as needed.</span>
 
-<span class=w>      </span><span class=c1>// The format of the files.</span>
+<span class=w>        </span><span class=c1>// The character(s) used to separate fields.  Common values are comma,</span>
+<span class=w>        </span><span class=c1>// tab, and pipe.  Multiple characters are allowed.</span>
+<span class=w>        </span><span class=kt>string</span><span class=w> </span><span class=na>field_delimiter</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=mi>1</span><span class=p>;</span>
+<span class=w>        </span><span class=c1>// The maximum number of bytes to read from a single line.  If a line</span>
+<span class=w>        </span><span class=c1>// exceeds this limit the resulting behavior is undefined.</span>
+<span class=w>        </span><span class=kt>uint64</span><span class=w> </span><span class=na>max_line_size</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=mi>2</span><span class=p>;</span>
+<span class=w>        </span><span class=c1>// The character(s) used to quote strings.  Common values are single</span>
+<span class=w>        </span><span class=c1>// and double quotation marks.</span>
+<span class=w>        </span><span class=kt>string</span><span class=w> </span><span class=na>quote</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=mi>3</span><span class=p>;</span>
+<span class=w>        </span><span class=c1>// The number of lines to skip at the beginning of the file.</span>
+<span class=w>        </span><span class=kt>uint64</span><span class=w> </span><span class=na>header_lines_to_skip</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=mi>4</span><span class=p>;</span>
+<span class=w>        </span><span class=c1>// The character used to escape characters in strings.  Backslash is</span>
+<span class=w>        </span><span class=c1>// a common value.  Note that a double quote mark can also be used as an</span>
+<span class=w>        </span><span class=c1>// escape character but the external quotes should be removed first.</span>
+<span class=w>        </span><span class=kt>string</span><span class=w> </span><span class=na>escape</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=mi>5</span><span class=p>;</span>
+<span class=w>        </span><span class=c1>// If this value is encountered (including empty string), the resulting</span>
+<span class=w>        </span><span class=c1>// value is null instead.  Leave unset to disable.  If this value is</span>
+<span class=w>        </span><span class=c1>// provided, the effective schema of this file is comprised entirely of</span>
+<span class=w>        </span><span class=c1>// nullable strings.  If not provided, the effective schema is instead</span>
+<span class=w>        </span><span class=c1>// made up of non-nullable strings.</span>
+<span class=w>        </span><span class=k>optional</span><span class=w> </span><span class=kt>string</span><span class=w> </span><span class=na>value_treated_as_null</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=mi>6</span><span class=p>;</span>
+<span class=w>      </span><span class=p>}</span>
+
+<span class=w>      </span><span class=c1>// The format of the files along with options for reading those files.</span>
 <span class=w>      </span><span class=k>oneof</span><span class=w> </span><span class=n>file_format</span><span class=w> </span><span class=p>{</span>
 <span class=w>        </span><span class=n>ParquetReadOptions</span><span class=w> </span><span class=na>parquet</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=mi>9</span><span class=p>;</span>
 <span class=w>        </span><span class=n>ArrowReadOptions</span><span class=w> </span><span class=na>arrow</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=mi>10</span><span class=p>;</span>
 <span class=w>        </span><span class=n>OrcReadOptions</span><span class=w> </span><span class=na>orc</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=mi>11</span><span class=p>;</span>
 <span class=w>        </span><span class=n>google.protobuf.Any</span><span class=w> </span><span class=na>extension</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=mi>12</span><span class=p>;</span>
 <span class=w>        </span><span class=n>DwrfReadOptions</span><span class=w> </span><span class=na>dwrf</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=mi>13</span><span class=p>;</span>
+<span class=w>        </span><span class=n>DelimiterSeparatedTextReadOptions</span><span class=w> </span><span class=na>text</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=mi>14</span><span class=p>;</span>
 <span class=w>      </span><span class=p>}</span>
 <span class=w>    </span><span class=p>}</span>
 <span class=w>  </span><span class=p>}</span>

@@ -2,226 +2,226 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://substrait.io/</loc>
-         <lastmod>2025-10-02</lastmod>
+         <lastmod>2025-10-10</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/about/</loc>
-         <lastmod>2025-10-02</lastmod>
+         <lastmod>2025-10-10</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/faq/</loc>
-         <lastmod>2025-10-02</lastmod>
+         <lastmod>2025-10-10</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/governance/</loc>
-         <lastmod>2025-10-02</lastmod>
+         <lastmod>2025-10-10</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/community/</loc>
-         <lastmod>2025-10-02</lastmod>
+         <lastmod>2025-10-10</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/community/powered_by/</loc>
-         <lastmod>2025-10-02</lastmod>
+         <lastmod>2025-10-10</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/expressions/aggregate_functions/</loc>
-         <lastmod>2025-10-02</lastmod>
+         <lastmod>2025-10-10</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/expressions/dynamic_parameters/</loc>
-         <lastmod>2025-10-02</lastmod>
+         <lastmod>2025-10-10</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/expressions/embedded_functions/</loc>
-         <lastmod>2025-10-02</lastmod>
+         <lastmod>2025-10-10</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/expressions/extended_expression/</loc>
-         <lastmod>2025-10-02</lastmod>
+         <lastmod>2025-10-10</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/expressions/field_references/</loc>
-         <lastmod>2025-10-02</lastmod>
+         <lastmod>2025-10-10</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/expressions/scalar_functions/</loc>
-         <lastmod>2025-10-02</lastmod>
+         <lastmod>2025-10-10</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/expressions/specialized_record_expressions/</loc>
-         <lastmod>2025-10-02</lastmod>
+         <lastmod>2025-10-10</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/expressions/subqueries/</loc>
-         <lastmod>2025-10-02</lastmod>
+         <lastmod>2025-10-10</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/expressions/table_functions/</loc>
-         <lastmod>2025-10-02</lastmod>
+         <lastmod>2025-10-10</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/expressions/user_defined_functions/</loc>
-         <lastmod>2025-10-02</lastmod>
+         <lastmod>2025-10-10</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/expressions/window_functions/</loc>
-         <lastmod>2025-10-02</lastmod>
+         <lastmod>2025-10-10</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/extensions/</loc>
-         <lastmod>2025-10-02</lastmod>
+         <lastmod>2025-10-10</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/extensions/functions_aggregate_approx/</loc>
-         <lastmod>2025-10-02</lastmod>
+         <lastmod>2025-10-10</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/extensions/functions_aggregate_decimal_output/</loc>
-         <lastmod>2025-10-02</lastmod>
+         <lastmod>2025-10-10</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/extensions/functions_aggregate_generic/</loc>
-         <lastmod>2025-10-02</lastmod>
+         <lastmod>2025-10-10</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/extensions/functions_arithmetic/</loc>
-         <lastmod>2025-10-02</lastmod>
+         <lastmod>2025-10-10</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/extensions/functions_arithmetic_decimal/</loc>
-         <lastmod>2025-10-02</lastmod>
+         <lastmod>2025-10-10</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/extensions/functions_boolean/</loc>
-         <lastmod>2025-10-02</lastmod>
+         <lastmod>2025-10-10</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/extensions/functions_comparison/</loc>
-         <lastmod>2025-10-02</lastmod>
+         <lastmod>2025-10-10</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/extensions/functions_datetime/</loc>
-         <lastmod>2025-10-02</lastmod>
+         <lastmod>2025-10-10</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/extensions/functions_geometry/</loc>
-         <lastmod>2025-10-02</lastmod>
+         <lastmod>2025-10-10</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/extensions/functions_logarithmic/</loc>
-         <lastmod>2025-10-02</lastmod>
+         <lastmod>2025-10-10</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/extensions/functions_rounding/</loc>
-         <lastmod>2025-10-02</lastmod>
+         <lastmod>2025-10-10</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/extensions/functions_rounding_decimal/</loc>
-         <lastmod>2025-10-02</lastmod>
+         <lastmod>2025-10-10</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/extensions/functions_set/</loc>
-         <lastmod>2025-10-02</lastmod>
+         <lastmod>2025-10-10</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/extensions/functions_string/</loc>
-         <lastmod>2025-10-02</lastmod>
+         <lastmod>2025-10-10</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/relations/basics/</loc>
-         <lastmod>2025-10-02</lastmod>
+         <lastmod>2025-10-10</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/relations/common_fields/</loc>
-         <lastmod>2025-10-02</lastmod>
+         <lastmod>2025-10-10</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/relations/embedded_relations/</loc>
-         <lastmod>2025-10-02</lastmod>
+         <lastmod>2025-10-10</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/relations/logical_relations/</loc>
-         <lastmod>2025-10-02</lastmod>
+         <lastmod>2025-10-10</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/relations/physical_relations/</loc>
-         <lastmod>2025-10-02</lastmod>
+         <lastmod>2025-10-10</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/relations/user_defined_relations/</loc>
-         <lastmod>2025-10-02</lastmod>
+         <lastmod>2025-10-10</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/serialization/basics/</loc>
-         <lastmod>2025-10-02</lastmod>
+         <lastmod>2025-10-10</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/serialization/binary_serialization/</loc>
-         <lastmod>2025-10-02</lastmod>
+         <lastmod>2025-10-10</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/serialization/text_serialization/</loc>
-         <lastmod>2025-10-02</lastmod>
+         <lastmod>2025-10-10</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/spec/extending/</loc>
-         <lastmod>2025-10-02</lastmod>
+         <lastmod>2025-10-10</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/spec/specification/</loc>
-         <lastmod>2025-10-02</lastmod>
+         <lastmod>2025-10-10</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/spec/technology_principles/</loc>
-         <lastmod>2025-10-02</lastmod>
+         <lastmod>2025-10-10</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/spec/versioning/</loc>
-         <lastmod>2025-10-02</lastmod>
+         <lastmod>2025-10-10</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/tools/producer_tools/</loc>
-         <lastmod>2025-10-02</lastmod>
+         <lastmod>2025-10-10</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/tools/substrait_validator/</loc>
-         <lastmod>2025-10-02</lastmod>
+         <lastmod>2025-10-10</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/tools/third_party_tools/</loc>
-         <lastmod>2025-10-02</lastmod>
+         <lastmod>2025-10-10</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/tutorial/examples/</loc>
-         <lastmod>2025-10-02</lastmod>
+         <lastmod>2025-10-10</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/tutorial/sql_to_substrait/</loc>
-         <lastmod>2025-10-02</lastmod>
+         <lastmod>2025-10-10</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/types/named_structs/</loc>
-         <lastmod>2025-10-02</lastmod>
+         <lastmod>2025-10-10</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/types/type_aliases/</loc>
-         <lastmod>2025-10-02</lastmod>
+         <lastmod>2025-10-10</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/types/type_classes/</loc>
-         <lastmod>2025-10-02</lastmod>
+         <lastmod>2025-10-10</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/types/type_parsing/</loc>
-         <lastmod>2025-10-02</lastmod>
+         <lastmod>2025-10-10</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/types/type_system/</loc>
-         <lastmod>2025-10-02</lastmod>
+         <lastmod>2025-10-10</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/types/type_variations/</loc>
-         <lastmod>2025-10-02</lastmod>
+         <lastmod>2025-10-10</lastmod>
     </url>
 </urlset>

@@ -21,6 +21,10 @@
          <lastmod>2026-04-09</lastmod>
     </url>
     <url>
+         <loc>https://substrait.io/community/active_libraries/</loc>
+         <lastmod>2026-04-09</lastmod>
+    </url>
+    <url>
          <loc>https://substrait.io/community/powered_by/</loc>
          <lastmod>2026-04-09</lastmod>
     </url>
@@ -170,6 +174,10 @@
     </url>
     <url>
          <loc>https://substrait.io/serialization/text_serialization/</loc>
+         <lastmod>2026-04-09</lastmod>
+    </url>
+    <url>
+         <loc>https://substrait.io/spec/breaking_change_policy/</loc>
          <lastmod>2026-04-09</lastmod>
     </url>
     <url>

@@ -1,0 +1,6 @@
+arrange:
+  - versioning.md
+  - specification.md
+  - technology_principles.md
+  - extending.md
+  - breaking_change_policy.md

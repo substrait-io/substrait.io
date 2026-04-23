@@ -1,0 +1,14 @@
+arrange:
+  - index.md
+  - spec
+  - types
+  - expressions
+  - relations
+  - serialization
+  - extensions
+  - community
+  - governance.md
+  - about.md
+  - tools
+  - tutorial
+  - faq.md

@@ -1,0 +1,5 @@
+arrange:
+
+- basics.md
+- binary_serialization.md
+- text_serialization.md

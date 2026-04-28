@@ -2,242 +2,242 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://substrait.io/preview/1058/</loc>
-         <lastmod>2026-04-23</lastmod>
+         <lastmod>2026-04-28</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/preview/1058/about/</loc>
-         <lastmod>2026-04-23</lastmod>
+         <lastmod>2026-04-28</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/preview/1058/faq/</loc>
-         <lastmod>2026-04-23</lastmod>
+         <lastmod>2026-04-28</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/preview/1058/governance/</loc>
-         <lastmod>2026-04-23</lastmod>
+         <lastmod>2026-04-28</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/preview/1058/community/</loc>
-         <lastmod>2026-04-23</lastmod>
+         <lastmod>2026-04-28</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/preview/1058/community/active_libraries/</loc>
-         <lastmod>2026-04-23</lastmod>
+         <lastmod>2026-04-28</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/preview/1058/community/powered_by/</loc>
-         <lastmod>2026-04-23</lastmod>
+         <lastmod>2026-04-28</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/preview/1058/expressions/aggregate_functions/</loc>
-         <lastmod>2026-04-23</lastmod>
+         <lastmod>2026-04-28</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/preview/1058/expressions/dynamic_parameters/</loc>
-         <lastmod>2026-04-23</lastmod>
+         <lastmod>2026-04-28</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/preview/1058/expressions/embedded_functions/</loc>
-         <lastmod>2026-04-23</lastmod>
+         <lastmod>2026-04-28</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/preview/1058/expressions/extended_expression/</loc>
-         <lastmod>2026-04-23</lastmod>
+         <lastmod>2026-04-28</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/preview/1058/expressions/field_references/</loc>
-         <lastmod>2026-04-23</lastmod>
+         <lastmod>2026-04-28</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/preview/1058/expressions/lambda_expressions/</loc>
-         <lastmod>2026-04-23</lastmod>
+         <lastmod>2026-04-28</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/preview/1058/expressions/scalar_functions/</loc>
-         <lastmod>2026-04-23</lastmod>
+         <lastmod>2026-04-28</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/preview/1058/expressions/specialized_record_expressions/</loc>
-         <lastmod>2026-04-23</lastmod>
+         <lastmod>2026-04-28</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/preview/1058/expressions/subqueries/</loc>
-         <lastmod>2026-04-23</lastmod>
+         <lastmod>2026-04-28</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/preview/1058/expressions/table_functions/</loc>
-         <lastmod>2026-04-23</lastmod>
+         <lastmod>2026-04-28</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/preview/1058/expressions/user_defined_functions/</loc>
-         <lastmod>2026-04-23</lastmod>
+         <lastmod>2026-04-28</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/preview/1058/expressions/window_functions/</loc>
-         <lastmod>2026-04-23</lastmod>
+         <lastmod>2026-04-28</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/preview/1058/extensions/</loc>
-         <lastmod>2026-04-23</lastmod>
+         <lastmod>2026-04-28</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/preview/1058/extensions/functions_aggregate_approx/</loc>
-         <lastmod>2026-04-23</lastmod>
+         <lastmod>2026-04-28</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/preview/1058/extensions/functions_aggregate_decimal_output/</loc>
-         <lastmod>2026-04-23</lastmod>
+         <lastmod>2026-04-28</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/preview/1058/extensions/functions_aggregate_generic/</loc>
-         <lastmod>2026-04-23</lastmod>
+         <lastmod>2026-04-28</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/preview/1058/extensions/functions_arithmetic/</loc>
-         <lastmod>2026-04-23</lastmod>
+         <lastmod>2026-04-28</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/preview/1058/extensions/functions_arithmetic_decimal/</loc>
-         <lastmod>2026-04-23</lastmod>
+         <lastmod>2026-04-28</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/preview/1058/extensions/functions_boolean/</loc>
-         <lastmod>2026-04-23</lastmod>
+         <lastmod>2026-04-28</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/preview/1058/extensions/functions_comparison/</loc>
-         <lastmod>2026-04-23</lastmod>
+         <lastmod>2026-04-28</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/preview/1058/extensions/functions_datetime/</loc>
-         <lastmod>2026-04-23</lastmod>
+         <lastmod>2026-04-28</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/preview/1058/extensions/functions_geometry/</loc>
-         <lastmod>2026-04-23</lastmod>
+         <lastmod>2026-04-28</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/preview/1058/extensions/functions_list/</loc>
-         <lastmod>2026-04-23</lastmod>
+         <lastmod>2026-04-28</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/preview/1058/extensions/functions_logarithmic/</loc>
-         <lastmod>2026-04-23</lastmod>
+         <lastmod>2026-04-28</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/preview/1058/extensions/functions_rounding/</loc>
-         <lastmod>2026-04-23</lastmod>
+         <lastmod>2026-04-28</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/preview/1058/extensions/functions_rounding_decimal/</loc>
-         <lastmod>2026-04-23</lastmod>
+         <lastmod>2026-04-28</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/preview/1058/extensions/functions_set/</loc>
-         <lastmod>2026-04-23</lastmod>
+         <lastmod>2026-04-28</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/preview/1058/extensions/functions_string/</loc>
-         <lastmod>2026-04-23</lastmod>
+         <lastmod>2026-04-28</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/preview/1058/relations/basics/</loc>
-         <lastmod>2026-04-23</lastmod>
+         <lastmod>2026-04-28</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/preview/1058/relations/common_fields/</loc>
-         <lastmod>2026-04-23</lastmod>
+         <lastmod>2026-04-28</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/preview/1058/relations/embedded_relations/</loc>
-         <lastmod>2026-04-23</lastmod>
+         <lastmod>2026-04-28</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/preview/1058/relations/logical_relations/</loc>
-         <lastmod>2026-04-23</lastmod>
+         <lastmod>2026-04-28</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/preview/1058/relations/physical_relations/</loc>
-         <lastmod>2026-04-23</lastmod>
+         <lastmod>2026-04-28</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/preview/1058/relations/user_defined_relations/</loc>
-         <lastmod>2026-04-23</lastmod>
+         <lastmod>2026-04-28</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/preview/1058/serialization/basics/</loc>
-         <lastmod>2026-04-23</lastmod>
+         <lastmod>2026-04-28</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/preview/1058/serialization/binary_serialization/</loc>
-         <lastmod>2026-04-23</lastmod>
+         <lastmod>2026-04-28</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/preview/1058/serialization/text_serialization/</loc>
-         <lastmod>2026-04-23</lastmod>
+         <lastmod>2026-04-28</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/preview/1058/spec/breaking_change_policy/</loc>
-         <lastmod>2026-04-23</lastmod>
+         <lastmod>2026-04-28</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/preview/1058/spec/extending/</loc>
-         <lastmod>2026-04-23</lastmod>
+         <lastmod>2026-04-28</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/preview/1058/spec/specification/</loc>
-         <lastmod>2026-04-23</lastmod>
+         <lastmod>2026-04-28</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/preview/1058/spec/technology_principles/</loc>
-         <lastmod>2026-04-23</lastmod>
+         <lastmod>2026-04-28</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/preview/1058/spec/versioning/</loc>
-         <lastmod>2026-04-23</lastmod>
+         <lastmod>2026-04-28</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/preview/1058/tools/producer_tools/</loc>
-         <lastmod>2026-04-23</lastmod>
+         <lastmod>2026-04-28</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/preview/1058/tools/substrait_validator/</loc>
-         <lastmod>2026-04-23</lastmod>
+         <lastmod>2026-04-28</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/preview/1058/tools/third_party_tools/</loc>
-         <lastmod>2026-04-23</lastmod>
+         <lastmod>2026-04-28</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/preview/1058/tutorial/examples/</loc>
-         <lastmod>2026-04-23</lastmod>
+         <lastmod>2026-04-28</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/preview/1058/tutorial/sql_to_substrait/</loc>
-         <lastmod>2026-04-23</lastmod>
+         <lastmod>2026-04-28</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/preview/1058/types/named_structs/</loc>
-         <lastmod>2026-04-23</lastmod>
+         <lastmod>2026-04-28</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/preview/1058/types/type_aliases/</loc>
-         <lastmod>2026-04-23</lastmod>
+         <lastmod>2026-04-28</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/preview/1058/types/type_classes/</loc>
-         <lastmod>2026-04-23</lastmod>
+         <lastmod>2026-04-28</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/preview/1058/types/type_parsing/</loc>
-         <lastmod>2026-04-23</lastmod>
+         <lastmod>2026-04-28</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/preview/1058/types/type_system/</loc>
-         <lastmod>2026-04-23</lastmod>
+         <lastmod>2026-04-28</lastmod>
     </url>
     <url>
          <loc>https://substrait.io/preview/1058/types/type_variations/</loc>
-         <lastmod>2026-04-23</lastmod>
+         <lastmod>2026-04-28</lastmod>
     </url>
 </urlset>
